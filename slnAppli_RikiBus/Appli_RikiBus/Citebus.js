@@ -26,22 +26,19 @@
     var geojsonLayer = new L.GeoJSON();
     var geojsonLayerCircuit = new L.GeoJSON();
 
-
-    var geojsonMarkerOptions = {
-    fillColor: "#ff7800",
-    color: "#ff0000",
-    weight: 1,
-    opacity: 1,
-    fillOpacity: 0.8
-};
-
     //Lecture GeoJson
     $.getJSON("arretcitebus.json", function (json) {
-        geojsonLayer.addData(json).addTo(mapCitebus); 
+        geojsonLayer.addData(json);
     });
+    
     $.getJSON("circuitcitebus.json", function (jsoncircuit) {
-        geojsonLayerCircuit.addData(jsoncircuit).addTo(mapCitebus);
+        geojsonLayerCircuit.addData(jsoncircuit);
     });
+
+    //Ajout layer dans map
+    geojsonLayer.addTo(mapCitebus);
+    geojsonLayerCircuit.addTo(mapCitebus);
+
 
     var overlayMaps = {
         "Circuit": geojsonLayerCircuit,
