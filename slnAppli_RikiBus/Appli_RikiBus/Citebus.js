@@ -154,14 +154,43 @@ function getTemps(horaire)
 function markerClick(e)
 {
     var heures = e.target.feature.properties.Horaire_SEM.split(", ");
-    var contenuHeures = '<p>' + heures + '</p>';
-    //var x = 0;
-    //for (x = 0; x < heures.length; x++) {
-    //    contenuHeures += heures[x];
-    //}
+    var AM = new Array();
+    var PM = new Array();
+    for (i = 0; i < heures.length; i++)
+    {
+        if(parseInt(heures[i]) < parseInt("12:00"))
+        {
+            AM[AM.length] = heures[i];
+        }
+        else
+        {
+            PM[PM.length] = heures[i];
+        }
+    }
+    var contenuHeures = '<div>';
+    contenuHeures += '<table style="width:100%" > <tr><th> AM </th> <th> PM </th> </tr>';
+    var x = 0;
+    for (x = 0; x < heures.length; x++) {
+        contenuHeures += '<tr>';
+        if (x >= AM.length)
+        {
+            contenuHeures += '<td></td>';
+        }
+        else
+        {
+            contenuHeures += '<td>' + AM[x] + '</td>';
+        }
+        if (x >= PM.length) {
+            contenuHeures += '<td></td>';
+        }
+        else {
+            contenuHeures += '<td>' + PM[x] + '</td>';
+        }
+        contenuHeures += '</tr>';
+    }
 
     contenuHeures += '</table>';
-
+    contenuHeures += '</div>';
     var contenu = '<h1>' + e.target.feature.properties.Nom + ' (Circuit ' + e.target.feature.properties.Circuit + ')</h1>' + contenuHeures;
     $('#infoArret').html(contenu);
 
