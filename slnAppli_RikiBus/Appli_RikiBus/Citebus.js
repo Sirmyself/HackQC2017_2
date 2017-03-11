@@ -7,7 +7,7 @@
         attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(mapCitebus);
 
-    ////Ajout d'un marker avec popup
+    ////Initialisation des Layers
 
     var geojsonLayerCircuit = new L.GeoJSON();
     var geojsonCircuit11 = new L.GeoJSON();
@@ -29,7 +29,7 @@
     }
 
 
-    //Lecture GeoJson
+    //Lecture GeoJson et séparation par Circuit
     $.getJSON("ressources/fichiers_JSON/arretcitebus.json", function (data) {
         var iconRouge = L.icon({
             iconUrl: 'ressources/img/Pointers/marker-red.png',
@@ -55,6 +55,7 @@
 
         var array = data.features;
 
+        //Circuit 11
         var geojSonArretCircuit11 = new L.GeoJSON(filtreCircuit(/11/,array), {
             pointToLayer: function (feature, latlng) {
                 return L.marker(latlng)
@@ -62,6 +63,8 @@
             }
         }).addTo(geojsonCircuit11);
 
+
+        //Circuit 21
         var geojSonArretCircuit21 = new L.GeoJSON(filtreCircuit(/21/, array), {
             pointToLayer: function (feature, latlng) {
                 return L.marker(latlng, { icon: iconRouge })
@@ -69,10 +72,11 @@
             }
         }).addTo(geojsonCircuit21);
 
+
+        //Circuit 31
         var geojSonArretCircuit31 = new L.GeoJSON(filtreCircuit(/31/, array), {
             pointToLayer: function (feature, latlng) {
-                return L.marker(latlng, {icon: iconOrange})
-                    //.on('click', markerClick(feature))    
+                return L.marker(latlng, {icon: iconOrange})   
                     .bindPopup("<b>Arrêt</b> " + feature.properties.Nom + "<br> Prochain arrêt " + getTemps(feature.properties.Horaire_SEM));
             }
         }).addTo(geojsonCircuit31);
