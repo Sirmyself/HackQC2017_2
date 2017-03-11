@@ -26,66 +26,72 @@
     }
     map.on('click', onMapClick);
 
-    //instanciation des layers
-    var geojsonRabattement = new L.GeoJSON();
-    var geojsonVert = new L.GeoJSON();
-    var geojsonBleue = new L.GeoJSON();
-    var geojsonRouge = new L.GeoJSON();
 
-    //ajout des layers à la carte
-    geojsonRabattement.addTo(map);
-    geojsonVert.addTo(map);
-    geojsonBleue.addTo(map);
-    geojsonRouge.addTo(map);
 
-    
+
 
     //test d'icône
-    var okIcon = L.icon({
-        iconUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/c/c3/NotCommons-emblem-copyrighted.svg/50px-NotCommons-emblem-copyrighted.svg.png',
-        iconSize: [60, 50]
-    });
 
     //Lecture GeoJson
-    $.getJSON("Arrets.json", function (data) {
-        var array = data.features;
-        geojsonRouge.addData(filtreZone(/rouge/, array)/*,
-            {
-                pointToLayer: function (feature, latlng) {
-                    return L.marker(latlng,
-                        {
-                            icon: okIcon
-                        });
-                }
-            }*/);
+    $.getJSON("ressources/fichiers_JSON/Arrets.json", function (data) {
+        var iconRouge = L.icon({
+            iconUrl: 'ressources/img/Pointers/marker-red.png',
+            shadowUrl: 'ressources/img/Pointers/marker-shadow.png',
 
+            iconSize:     [25, 41],
+            shadowSize:   [41, 41],
+            iconAnchor:   [12, 41],
+            shadowAnchor: [13, 41],
+            popupAnchor:  [12, -2] 
+        });
+        var array = data.features;
+
+        
+        //instanciation des layers
+        var geojsonRabattement = new L.GeoJSON();
+        var geojsonVert = new L.GeoJSON();
+        var geojsonBleue = new L.GeoJSON();
+        var geojsonRouge = new L.GeoJSON(filtreZone(/rouge/, array), {
+            pointToLayer: function (feature, latlng) {
+                return new L.Marker(latlng, { icon: iconRouge });
+            }
+        });
+
+
+
+        //ajout des layers à la carte
+        geojsonRabattement.addTo(map);
+        geojsonVert.addTo(map);
+        geojsonBleue.addTo(map);
+        geojsonRouge.addTo(map);
+
+ //       geojsonRouge.addData(filtreZone(/rouge/, array));
         geojsonVert.addData(filtreZone(/verte/, array));
         geojsonBleue.addData(filtreZone(/bleue/, array));
         geojsonRabattement.addData(filtreZone(/rabattement/, array));
 
         function filtreZone(regex, data) {
-        /*Filtrage des données geojson avec un regex (si le type de point contient le regex, il sera dans la liste de données)*/
-        var array = [];
-        for (i = 2; i < data.length; ++i) {
-            var str = "";
-            str = data[i].properties.Type_arret;
-            if (regex.test(str)) {
-                array[array.length] = data[i];
+            /*Filtrage des données geojson avec un regex (si le type de point contient le regex, il sera dans la liste de données)*/
+            var array = [];
+            for (i = 2; i < data.length; ++i) {
+                var str = "";
+                str = data[i].properties.Type_arret;
+                if (regex.test(str)) {
+                    array[array.length] = data[i];
+                }
             }
+            return array;
         }
-        return array;
-    }
+
+        var overlayMaps = {
+            "Ligne rouge": geojsonRouge,
+            "Zone Verte": geojsonVert,
+            "Zone Bleue": geojsonBleue,
+            "Point de rabattement": geojsonRabattement
+        };
+
+        L.control.layers(null, overlayMaps).addTo(map);
+
     });
-
-
-    //var overlayMaps = {
-    //    "Ligne rouge": geojsonRouge,
-    //    "Zone Verte": geojsonVert,
-    //    "Zone Bleue": geojsonBleue,
-    //    "Point de rabattement": geojsonRabattement
-    //};
-
-    //L.control.layers(null, overlayMaps).addTo(map);
-
 });
 
