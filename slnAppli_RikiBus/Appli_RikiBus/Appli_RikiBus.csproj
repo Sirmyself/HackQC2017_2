@@ -85,6 +85,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="icon.js" />
+    <Content Include="ressources\img\Style\ligneGray.png" />
     <Content Include="ressources\img\Style\ligneGreen.PNG" />
     <Content Include="ressources\img\Pointers\marker-blue.png" />
     <Content Include="ressources\img\Pointers\marker-green.png" />
@@ -92,6 +93,7 @@
     <Content Include="ressources\img\Pointers\marker-red.png" />
     <Content Include="ressources\img\Pointers\marker-shadow.png" />
     <Content Include="ressources\img\Pointers\marker-yellow.png" />
+    <Content Include="ressources\img\Style\ligneWhite.png" />
     <Content Include="Taxibus.js" />
     <Content Include="citebus.html" />
     <Content Include="Citebus.js" />

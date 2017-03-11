@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <title>Accueil</title>
+    <title>Cite bus - Mode Emploi</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Compiled JQuery -->
@@ -70,21 +70,31 @@
         .navbar-nav li a:hover {
             color: #1abc9c !important;
         }
-        .col-sm-4 {
-            text-align : left;
 
+        .col-sm-4 {
+            text-align: left;
         }
-        .titreModeEmploi {
+
+        .titreModeEmploiGreen {
             text-align: center;
             color: #1abc9c;
-            
+        }
+        .titreModeEmploiGray {
+            text-align: center;
+            color: #2f2f2f;
+        }
+        .titreModeEmploiGray {
+            text-align: center;
+            color: white;
+        }
+        .retrait {
+            text-indent: 50px;
+            text-align : left;
         }
     </style>
     <meta charset="utf-8" />
 </head>
 <body>
-
-    <!-- Navbar -->
     <!-- Navbar -->
     <nav class="navbar navbar-default">
         <div class="container">
@@ -94,7 +104,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Rimouski<b>BUS</b></a>
+                <a class="navbar-brand" href="../../../index.html">Rimouski<b>BUS</b></a>
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav navbar-right">
@@ -106,101 +116,238 @@
     </nav>
 
     <!-- First Container -->
-
-
-    </div>
-
-    <!-- Second Container -->
     <div class="container-fluid bg-2 text-center">
-        <h3 class="margin">What Am I?</h3>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
-        <a href="#" class="btn btn-default btn-lg">
-            <span class="glyphicon glyphicon-search"></span> Search
+        <h3 class="margin">Service offert</h3>
+        <p><b>Du lundi au vendredi :</b> offert toutes les 30 minutes aux heures de pointes et toutes les 60 minutes en période hors pointe.</p>
+        <a href="../../../citebus.html" class="btn btn-default btn-lg">
+            <span class="glyphicon glyphicon-search"></span> Consulter l'horaire
         </a>
     </div>
 
-    <!-- Third Container (Grid) -->
+    <!-- Second Container (Grid) -->
+    <div>
+        <!-- Conteneur grille mode d'emploi -->
 
-
-
-    <div class="container-fluid bg-3 text-center">
-        <h3 class="margin">Mode d'emploi</h3><br>
-        <div class="row">
-            <div class="col-sm-4">
-               <!-- Embarquement -->
-                <img src="../../../ressources/img/Style/ligneGreen.png" class="img-responsive margin" style="width:40%" alt="Image"></center>
-                <div class="titreModeEmploi"> Embarquement et Débarquement</div>
-                    </br> 
-                    <p>
-                        L'embarquement et le débarquement se font uniquement aux arrêts identifiés par les panneaux Citébus.
-                        Nous vous demandons d'arriver quelques mutes avant l'heure indiquée.
-                    </p>
-                         
-            </div>
-            <!-- Siège situé derriere le chauffeur -->
-            <div class="col-sm-4">
-                <div class="titreModeEmploi"> Sièges situés juste derrière le chauffeur</div>
-                </br>
-                <p>
-                    Les sièges situées derrière le chauffeur et identifiés à cette fn sont prioritairement réservés aux personnes agées,
-                    aux personnes ayant des limitations fonctionnelles et aux parents accompagnés de très jeunes enfants. 
-               </p>
-
-            </div>
-            <!-- Bagages -->
-            <div class="col-sm-4">
-                <div class="titreModeEmploi">Bagages</div>
-                </br>
-                <p>
-                    Les bagages à main sont permis, mais ils doivent être placés sur les genoux de l'usager,
-                    sans nuire aux autres passagers. Ils ne peuvent en aucun temps être déposés dans l'allé.
-                </p>
-            
-            </div>
-            </div>
-            <div class="container-fluid bg-3 text-center">
-                <!-- Poussettes -->
+        <!-- 1er conteneur -->
+        <div class="container-fluid bg-3 text-center">
+            <h3 class="margin">Mode d'emploi</h3><br>
+            <div class="row">
+                <!-- Embarquement -->
                 <div class="col-sm-4">
-                    <div class="titreModeEmploi">Poussettes</div>
+
+                    <center><img src="../../../ressources/img/Style/ligneGreen.png" class="img-responsive margin" style="width:100%" alt="Image"></center>
+                    <div class="titreModeEmploiGreen"> Embarquement et Débarquement</div>
+                    </br>
+                    <p>
+                        L'embarquement et le débarquement se font uniquement aux <u>arrêts identifiés</u> par les panneaux Citébus.
+                        <b> Nous vous demandons d'arriver quelques mutes avant l'heure indiquée</b>.
+                    </p>
+
+                </div>
+                <!-- Siège situé derriere le chauffeur -->
+                <div class="col-sm-4">
+                    <center><img src="../../../ressources/img/Style/ligneGreen.png" class="img-responsive margin" style="width:100%" alt="Image"></center>
+                    <div class="titreModeEmploiGreen"> Sièges situés juste derrière le chauffeur</div>
+                    </br>
+                    <p>
+                        Les sièges situées derrière le chauffeur et identifiés à cette fin <b>
+                            sont prioritairement réservés aux <i>
+                                personnes agées, aux personnes ayant des limitations fonctionnelles et aux parents accompagnés de très jeunes enfants.
+                            </i>
+                        </b>
+                    </p>
+
+                </div>
+                <!-- Bagages -->
+                <div class="col-sm-4">
+                    <center><img src="../../../ressources/img/Style/ligneGreen.png" class="img-responsive margin" style="width:100%" alt="Image"></center>
+                    <div class="titreModeEmploiGreen">Bagages</div>
+                    </br>
+                    <p>
+                        Les bagages à main sont permis, mais <u>
+                            ils doivent être placés sur les genoux de l'usager,
+                            sans nuire aux autres passagers
+                        </u>. Ils ne peuvent en aucun temps être déposés dans l'allé.
+                    </p>
+
+                </div>
+            </div>
+</div>
+            <!-- 2eme conteneur -->
+            <div class="container-fluid bg-1 text-center">
+
+
+              
+                <!-- Poussettes -->
+                <div class="col-sm-6">
+                    <center><img src="../../../ressources/img/Style/ligneGray.png" class="img-responsive margin" style="width:100%" alt="Image"></center>
+                    <div class="titreModeEmploiGray">Poussettes</div>
                     </br>
                     <p>
                         Citébus accepte les poussettes préalablement pliées, mais le chauffeur ne les manipule pas et n’offre pas d’assistance.
                     </p>
 
                 </div>
-                <div class="col-sm-4">
-                    <!-- Mineurs - 10 ans -->
-                    <div class="titreModeEmploi">Enfants âgés de moins de 10 ans </div>
+                <!-- Mineurs - 10 ans -->
+                <div class="col-sm-6">
+
+                    <center><img src="../../../ressources/img/Style/ligneGray.png" class="img-responsive margin" style="width:100%" alt="Image"></center>
+                    <div class="titreModeEmploiGray">Enfants âgés de moins de 10 ans </div>
                     </br>
                     <p>
-                        Tout enfant âgé de moins de 10 ans doit être accompagné d’un adulte pendant
+                        Tout enfant âgé de  <b><u>moins de 10 ans</u> doit être accompagné d’un adulte</b> pendant
                         toute la durée de son déplacement en transport collectif.
                     </p>
 
                 </div>
-                <div class="col-sm-4">
-                    <!-- Tarifs reduit -->
-                    <div class="titreModeEmploi">Carte de validation donnant le droit au tarif réduit </div>
+                </div>
+          <div class="container-fluid bg-2 text-center">
+         
+            <!-- Tableau prix -->
+            <div class="col-sm-6">
+
+                <center><img src="../../../ressources/img/Style/ligneWhite.png" class="img-responsive margin" style="width:100%" alt="Image"></center>
+                <div class="titreModeEmploiWhite">Tarifs</div>
+                </br>
+
+                <div class=" text-left">
+                    <table style="width:100%">
+
+                        <tr>
+                            <th>Type de trajet</th>
+                            <th>Prix régulier</th>
+                            <th>Prix réduit </th>
+                        </tr>
+                        <tr>
+                            <td>Aller simple</td>
+                            <td>3.95 $</td>
+                            <td>2.65 $</td>
+                        </tr>
+                        <tr>
+                            <td>Laissez-passer mensuel</td>
+                            <td>102 $</td>
+                            <td>51 $</td>
+                        </tr>
+                        <tr>
+                            <td>Lot de dix billets</td>
+                            <td>32.85 $</td>
+                            <td>23.85 $</td>
+                        </tr>
+                    </table></div>
+
+
+                </div>
+            <!-- Mode de paiement-->
+            <div class="col-sm-6">
+                <center><img src="../../../ressources/img/Style/ligneWhite.png" class="img-responsive margin" style="width:100%" alt="Image"></center>
+                <div class="titreModeEmploiWhite">Modes de paiement</div></br>
+                <div class=" text-left">
+                <ul>
+                   <li>Laissez-passer mensuel</li> 
+                    <li>
+                        Billet
+                    </li>
+                    <li> Argent comptant en monnaie exacte.</li>
+             </ul></div>
+            </div>
+
+
+
+            </div>
+
+
+
+
+            <!-- 3eme conteneur -->
+            <div class="container-fluid bg-3 text-center">
+                <!-- Tarifs reduit -->
+                <div class="col-sm-6">
+
+                    <center><img src="../../../ressources/img/Style/ligneGreen.png" class="img-responsive margin" style="width:100%" alt="Image"></center>
+                    <div class="titreModeEmploiGreen">Carte de validation donnant le droit au tarif réduit </div>
                     </br>
                     <p>
-                        Pour obtenir la carte de validation du statut étudiant,l'usager doit se présenter au bureau de la Société.
-                        Une fois l'admissibilité confimée, La Société émet une carte de validation avec photo.
-                        Elle doit être présentée à chaque embarquement Taxibus ou Ciébus ou lors de l’achat de billets et de laissez-passer mensuels.
+                        Pour obtenir la carte de validation du <b>statut étudiant</b>, l'usager doit se présenter au bureau de la Société des transports  de Rimouski.
+                        Une fois l'admissibilité confimée, la <i>Société des transports de Rimouski</i>  émet une <u>carte de validation avec photo</u>.
+                        Elle doit être présentée à chaque embarquement Taxibus ou Citébus ou lors de l’achat de billets et de laissez-passer mensuels.
                         </br>
-                        La carte de validation du statut étudiant est valide du 15 août de l'année en cours au 14 août de l'année suivante.
                         </br>
-                        Sur demande la Société des transports de Rimouski peut émettre unecarte d'identité avec photo aux usager de 65 ans et plus.
+                        La carte de validation du statut étudiant est <b>valide </b>du <u>15 août de l'année en cours au 14 août de l'année suivante.</u>
+                        </br>      </br>
+                        Sur demande la <i>Société des transports de Rimouski</i> peut émettre une carte d'identité avec photo aux <b>usager de 65 ans et plus</b>.
                     </p>
+
+                </div>
+                <!-- Jours feries -->
+                <div class="col-sm-6 text-left">
+
+                    <center><img src="../../../ressources/img/Style/ligneGreen.png" class="img-responsive margin" style="width:100%" alt="Image"></center>
+                    <div class="titreModeEmploiGreen">Jours fériés</div>
+                    </br>
+                   
+                    <p>
+                        Le service est disponible du dimanche au samedi, à l’exception des jours suivants où il n’y a pas de service :
+                    <p >
+                        <ul>
+                            <li>le 1er janvier</li>
+                            <li>
+                                le 2 janvier
+                            </li>
+                            <li>
+                                le lundi de Pâques
+                            </li>
+                            <li>
+                                la journée nationale des Patriotes (23/05)
+                            </li>
+                            <li>
+                                la fête nationale du Québec (24/07)
+                            </li>
+                            <li>
+                                la fête du Canada (1/07)
+                            </li>
+                            <li>
+                                la fête du Travail (Premier lundi de septembre)
+                            </li>
+                            <li>
+                                l’Action de grâces (Deuxième lundi d'octobre)
+                            </li>
+                            <li>
+                                le 25 décembre
+                            </li>
+                            <li> le 26 décembre</li>
+                        </ul>
+                    </p>
+                    </p>   
+                   
 
                 </div>
             </div>
         </div>
-    </div>
 
+
+
+
+    <div class="container-fluid bg-2 text-center">
+        <h3 class="margin">Plus d'information</h3>
+        <p>
+            <center><b>Vous avez des questions sur votre service de transport en commun ? </b></center>
+
+            </br>
+        <p>
+
+            Que vous utilisiez CitéBus, TaxiBus ou les deux, nos téléphonistes vous conseillent
+            sur le trajet qui vous convient le mieux à vos besoins.
+
+        </p>
+
+
+        </p>
+        <a href="tel:4187235555" class="btn btn-default btn-lg">
+            <span class="glyphicon glyphicon-earphone"> </span> 418 723-5555
+        </a>
+    </div>
     <!-- Footer -->
     <footer class="container-fluid bg-4 text-center">
-        <p>Bootstrap Theme Made By <a href="https://www.w3schools.com">www.w3schools.com</a></p>
-    </footer>
-
-</body>
+        <p>Fait par l'équipe de <b>Euzautes</b> au Hack Qc 2017 </p>
+    </footer>   </body>
 </html>
