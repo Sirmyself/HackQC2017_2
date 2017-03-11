@@ -42,11 +42,22 @@
             popupAnchor: [1, -27]
         });
 
+        var iconOrange = L.icon({
+            iconUrl: 'ressources/img/Pointers/marker-orange.png',
+            shadowUrl: 'ressources/img/Pointers/marker-shadow.png',
+
+            iconSize: [25, 41],
+            shadowSize: [41, 41],
+            iconAnchor: [12, 41],
+            shadowAnchor: [13, 41],
+            popupAnchor: [1, -27]
+        });
+
         var array = data.features;
 
         var geojSonArretCircuit11 = new L.GeoJSON(filtreCircuit(/11/,array), {
             pointToLayer: function (feature, latlng) {
-                return L.marker(latlng, { icon: iconRouge })
+                return L.marker(latlng)
                     .bindPopup("<b>Arrêt</b> :" + feature.properties.Nom + "<br> Prochain arrêt " + getTemps(feature.properties.Horaire_SEM));
             }
         }).addTo(geojsonCircuit11);
@@ -60,7 +71,7 @@
 
         var geojSonArretCircuit31 = new L.GeoJSON(filtreCircuit(/31/, array), {
             pointToLayer: function (feature, latlng) {
-                return L.marker(latlng)
+                return L.marker(latlng, {icon: iconOrange})
                     //.on('click', markerClick(feature))    
                     .bindPopup("<b>Arrêt</b> " + feature.properties.Nom + "<br> Prochain arrêt " + getTemps(feature.properties.Horaire_SEM));
             }
