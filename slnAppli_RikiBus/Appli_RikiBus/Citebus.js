@@ -182,7 +182,7 @@ function markerClick(e)
         {
             AM[AM.length] = heures[i];
         }
-        else
+        else 
         {
             PM[PM.length] = heures[i];
         }
