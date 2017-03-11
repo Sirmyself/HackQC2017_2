@@ -72,6 +72,14 @@
     <Content Include="Taxibus.js" />
     <Content Include="citebus.html" />
     <Content Include="Citebus.js" />
+    <Content Include="img\Citebus\citebus.jpg" />
+    <Content Include="img\Citebus\citebusneige.jpg" />
+    <Content Include="img\Citebus\panneaucitebus.jpg" />
+    <Content Include="img\Citebus\petitemamiebus.jpg" />
+    <Content Include="img\RimouskiCity\fleuveriki.jpg" />
+    <Content Include="img\RimouskiCity\logoRiki.png" />
+    <Content Include="img\RimouskiCity\RimouskiMapCarte.jpg" />
+    <Content Include="img\STR\logoSocieteTransportRiki.png" />
     <Content Include="index.html" />
     <Content Include="informations.html" />
     <Content Include="taxibus.html" />
