@@ -9,7 +9,7 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={
 }).addTo(mapCitebus);
 
 
-//Loading du GeoJson test
+//Loading du GeoJson
 $.getJSON("arretcitebus.json", function (json) {
     var marker = L.marker([51.5, -0.09]).addTo(mapCitebus);
 });

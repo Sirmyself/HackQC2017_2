@@ -67,6 +67,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="citebus.html" />
+    <Content Include="Citebus.js" />
     <Content Include="index.html" />
     <Content Include="informations.html" />
     <Content Include="taxibus.html" />
