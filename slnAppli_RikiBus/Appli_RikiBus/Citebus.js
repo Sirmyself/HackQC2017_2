@@ -60,8 +60,9 @@
 
         var geojSonArretCircuit31 = new L.GeoJSON(filtreCircuit(/31/, array), {
             pointToLayer: function (feature, latlng) {
-                return L.marker(latlng, { icon: iconRouge })
-                    .bindPopup("<b>Arrêt</b> :" + feature.properties.Nom + "<br> Prochain arrêt " + getTemps(feature.properties.Horaire_SEM));
+                return L.marker(latlng)
+                    //.on('click', markerClick(feature))    
+                    .bindPopup("<b>Arrêt</b> " + feature.properties.Nom + "<br> Prochain arrêt " + getTemps(feature.properties.Horaire_SEM));
             }
         }).addTo(geojsonCircuit31);
     });
@@ -92,13 +93,19 @@
     L.control.layers(null, overlayMaps).addTo(mapCitebus);
 });
 
-
+// Affiche les infos de temps pour un marker
 function getTemps(horaire)
 {
+    var debut;
     var heures = horaire.split(", ");
+    var original = heures.slice();
     var x = 0;
     for (x = 0; x < heures.length; x++)
     {
+        if (x == 0)
+        {
+            debut = heures[x];
+        }
         var temp = heures[x];
         heures[x] = String(temp).split(":");
     }
@@ -109,19 +116,22 @@ function getTemps(horaire)
         heures[y] = parseInt(temp * 60) + parseInt(heures[y][1]);
     }
 
-    //var d = new Date();
-    //var hour = d.getHours();
-    //var minute = d.getMinutes();
-    //hour = 9;
-    minute = 1334;
+    minute = 1334; //////////////////////////////////////////////////Valeur en minutes pour le temps de la journée
 
     var i = 0;
     for (i = 0; i < heures.length; i++)
     {
-        if (heures[i ] > minute)
+        if (heures[i] > minute)
         {
-            return "dans " + (parseInt(heures[i]) - parseInt(minute)) + " minutes";
+            return "dans " + (parseInt(heures[i]) - parseInt(minute)) + " minutes (" + original[i] + ")";
         }
     }
-    return "demain à " + heures[0];
+
+    return "demain à " + debut;
+}
+
+// Évènement click sur un marker
+function markerClick(e)
+{
+    $("unArret").append("<p>test</p>");
 }
