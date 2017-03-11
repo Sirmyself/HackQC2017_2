@@ -45,7 +45,7 @@
             popupAnchor: [12, -2]
         });
 
-        L.geoJson(data, {
+        geojsonLayer = L.geoJson(data, {
             pointToLayer: function (feature, latlng) {
                 return L.marker(latlng, { icon: iconRouge })
                     .bindPopup("<b>Arrêt</b> :" + feature.properties.Nom + "<br> Prochain arrêt " + getTemps(feature.properties.Horaire_SEM));
@@ -66,7 +66,7 @@
 
     //Ajout layer dans map
     geojsonLayer.addTo(mapCitebus);
-    //L.geoJSON(geojsonCircuit11, style: function).addTo(mapCitebus);
+    geojsonCircuit11.addTo(mapCitebus);
     geojsonCircuit21.addTo(mapCitebus);
     geojsonCircuit31.addTo(mapCitebus);
 
