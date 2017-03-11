@@ -1,0 +1,8 @@
+﻿body {
+}
+
+.disabledLink{
+    pointer-events: none;
+    cursor: default;
+    text-decoration: underline !important;
+}
