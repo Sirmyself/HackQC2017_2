@@ -17,61 +17,8 @@
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
     <!-- Font -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-    <style>
-        body {
-            font: 20px Montserrat, sans-serif;
-            line-height: 1.8;
-            color: #f5f6f7;
-        }
-
-        p {
-            font-size: 16px;
-        }
-
-        .margin {
-            margin-bottom: 45px;
-        }
-
-        .bg-1 {
-            background-color: #1abc9c; /* Green */
-            color: #ffffff;
-        }
-
-        .bg-2 {
-            background-color: #474e5d; /* Dark Blue */
-            color: #ffffff;
-        }
-
-        .bg-3 {
-            background-color: #ffffff; /* White */
-            color: #555555;
-        }
-
-        .bg-4 {
-            background-color: #2f2f2f; /* Black Gray */
-            color: #fff;
-        }
-
-        .container-fluid {
-            padding-top: 70px;
-            padding-bottom: 70px;
-        }
-
-        .navbar {
-            padding-top: 15px;
-            padding-bottom: 15px;
-            border: 0;
-            border-radius: 0;
-            margin-bottom: 0;
-            font-size: 12px;
-            letter-spacing: 5px;
-        }
-
-        .navbar-nav li a:hover {
-            color: #1abc9c !important;
-        }
-    </style>
-    <meta charset="utf-8" />
+    <!-- Styling --> 
+    <link rel="stylesheet" href="App_Themes/style.css" />
 </head>
 <body>
 
@@ -84,13 +31,12 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Me</a>
+                <a class="navbar-brand" href="#">Rimouski<b>BUS</b></a>
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="citebus.html">Citebus</a></li>
+                    <li><a href="citebus.html">Citébus</a></li>
                     <li><a href="taxibus.html">Taxibus</a></li>
-                    <li><a href="#">WHERE</a></li>
                 </ul>
             </div>
         </div>
@@ -98,42 +44,35 @@
 
     <!-- First Container -->
     <div class="container-fluid bg-1 text-center">
-        <h3 class="margin">Who Am I?</h3>
-        <img src="bird.jpg" class="img-responsive img-circle margin" style="display:inline" alt="Bird" width="350" height="350">
-        <h3>I'm an adventurer</h3>
+        <h3 class="margin">Besoin d'un transport à Rimouski?</h3>
+        <h1>Pensez à <b>Citébus</b> et <b>Taxibus</b>!</h1>
     </div>
 
     <!-- Second Container -->
     <div class="container-fluid bg-2 text-center">
-        <h3 class="margin">What Am I?</h3>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
-        <a href="#" class="btn btn-default btn-lg">
-            <span class="glyphicon glyphicon-search"></span> Search
-        </a>
+        <h3 class="margin">Qu'est-ce que c'est?</h3>
+        <p>Taxibus et Citébus offre un service de transport en commun sur le territoire de la Ville de Rimouski au plus grand nombre de personnes possibles. Le niveau de service est basé sur la densité de la population dans le secteur donné et la distance 
+        à parcourir pour respecter les horaires. Ces éléments déterminent la fréquence, l'étendue et la nature de la desserte en transport en commun.</p>
     </div>
 
     <!-- Third Container (Grid) -->
     <div class="container-fluid bg-3 text-center">
-        <h3 class="margin">Where To Find Me?</h3><br>
+        <h3 class="margin">De quel service ai-je besoin ?</h3><br>
         <div class="row">
-            <div class="col-sm-4">
+            <div class="col-sm-6">
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                <img src="birds1.jpg" class="img-responsive margin" style="width:100%" alt="Image">
+                <a href="#" class="btn btn-default btn-lg">J'ai besoin de <b>Citébus</b>!</a>
             </div>
-            <div class="col-sm-4">
+            <div class="col-sm-6">
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                <img src="birds2.jpg" class="img-responsive margin" style="width:100%" alt="Image">
-            </div>
-            <div class="col-sm-4">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                <img src="birds3.jpg" class="img-responsive margin" style="width:100%" alt="Image">
+                <a href="#" class="btn btn-default btn-lg">J'ai besoin de <b>Taxibus</b>!</a>
             </div>
         </div>
     </div>
 
     <!-- Footer -->
     <footer class="container-fluid bg-4 text-center">
-        <p>Bootstrap Theme Made By <a href="https://www.w3schools.com">www.w3schools.com</a></p>
+        <p>Fait par l'équipe de <b>Euzautes</b> au Hack Qc 2017 </p>
     </footer>
 
 </body>

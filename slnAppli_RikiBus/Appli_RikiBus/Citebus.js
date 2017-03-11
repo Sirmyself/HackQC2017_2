@@ -1,39 +1,46 @@
 ﻿$('document').ready(function () {
     // initialization de la map
-    var map = L.map('map').setView([48.4506343914947, -68.5289754901558], 12);
+    var mapCitebus = L.map('map').setView([48.4506343914947, -68.5289754901558], 12);
 
     //Chargement de la carte de base
     L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-    }).addTo(map);
+    }).addTo(mapCitebus);
 
-    //Ajout d'un marker avec popup
-    var marker = L.marker([48.4532573993011, -68.5227191989171]).addTo(map);
-    marker.bindPopup("Je fait des tests");
+    ////Ajout d'un marker avec popup
+    //var marker = L.marker([48.4532573993011, -68.5227191989171]).addTo(map);
+    //marker.bindPopup("Je fait des tests");
 
     //Ajout d'un popup Onclick sur la map 
-    var popup = L.popup();
+    //var popup = L.popup();
 
-    function onMapClick(e) {
-        popup
-            .setLatLng(e.latlng)
-            .setContent("Tu as cliqués sur la map à " + e.latlng.toString())
+    //function onMapClick(e) {
+    //    popup
+    //        .setLatLng(e.latlng)
+    //        .setContent("Tu as cliqués sur la map à " + e.latlng.toString())
 
-            .openOn(map);
-    }
-    map.on('click', onMapClick);
+    //        .openOn(map);
+    //}
+    //map.on('click', onMapClick);
 
     var geojsonLayer = new L.GeoJSON();
     var geojsonLayerCircuit = new L.GeoJSON();
 
 
+    var geojsonMarkerOptions = {
+    fillColor: "#ff7800",
+    color: "#ff0000",
+    weight: 1,
+    opacity: 1,
+    fillOpacity: 0.8
+};
+
     //Lecture GeoJson
     $.getJSON("arretcitebus.json", function (json) {
-        geojsonLayer.addData(json).addTo(map); // this will show the info it in firebug console
+        geojsonLayer.addData(json).addTo(mapCitebus); 
     });
     $.getJSON("circuitcitebus.json", function (jsoncircuit) {
-
-        geojsonLayerCircuit.addData(jsoncircuit).addTo(map);
+        geojsonLayerCircuit.addData(jsoncircuit).addTo(mapCitebus);
     });
 
     var overlayMaps = {
@@ -41,5 +48,5 @@
         "Arret": geojsonLayer
     };
 
-    L.control.layers(null, overlayMaps).addTo(map);
+    L.control.layers(null, overlayMaps).addTo(mapCitebus);
 });
