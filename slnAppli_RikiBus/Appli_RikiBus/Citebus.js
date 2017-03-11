@@ -14,16 +14,19 @@
 
     //Lecture GeoJson
     $.getJSON("arretcitebus.json", function (data) {
-        L.geoJson(data, {
-            pointToLayer: function (feature, latlng) {
-                return L.marker(latlng)
-                    .bindPopup("<b>Circuit</b> :" + feature.properties.Circuit);
-            }
-        }).addTo(mapCitebus);
+            L.geoJson(data, {
+                pointToLayer: function (feature, latlng) {
+                    return L.marker(latlng)
+                        .bindPopup("<b>Circuit</b> :" + feature.properties.Circuit);
+                }
+            }).addTo(mapCitebus);
+        
     });
     
+
+
     $.getJSON("circuitcitebus.json", function (jsoncircuit) {
-        geojsonLayerCircuit.addData(jsoncircuit);
+        geojsonLayerCircuit.addData(jsoncircuit); 
     });
 
     //Ajout layer dans map
