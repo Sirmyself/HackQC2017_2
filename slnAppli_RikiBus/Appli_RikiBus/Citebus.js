@@ -17,7 +17,7 @@
         L.geoJson(data, {
             pointToLayer: function (feature, latlng) {
                 return L.marker(latlng)
-                    .bindPopup("<b>Circuit</b> :" + feature.properties.Circuit);
+                    .bindPopup("<b>Arrêt</b> :" + feature.properties.Nom + "<br> Prochain arrêt " + getTemps(feature.properties.Horaire_SEM));
             }
         }).addTo(mapCitebus);
     });
@@ -38,3 +38,37 @@
 
     L.control.layers(null, overlayMaps).addTo(mapCitebus);
 });
+
+
+function getTemps(horaire)
+{
+    var heures = horaire.split(", ");
+    var x = 0;
+    for (x = 0; x < heures.length; x++)
+    {
+        var temp = heures[x];
+        heures[x] = String(temp).split(":");
+    }
+
+    var y = 0;
+    for (y = 0; y < heures.length; y++) {
+        var temp = heures[y][0];
+        heures[y] = parseInt(temp * 60) + parseInt(heures[y][1]);
+    }
+
+    //var d = new Date();
+    //var hour = d.getHours();
+    //var minute = d.getMinutes();
+    //hour = 9;
+    minute = 1334;
+
+    var i = 0;
+    for (i = 0; i < heures.length; i++)
+    {
+        if (heures[i ] > minute)
+        {
+            return "dans " + (parseInt(heures[i]) - parseInt(minute)) + " minutes";
+        }
+    }
+    return "demain à " + heures[0];
+}
