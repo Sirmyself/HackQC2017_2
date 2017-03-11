@@ -1,13 +1,9 @@
-﻿
-
-
-
-$('document').ready(function () {
+﻿$('document').ready(function () {
     // initialization de la map
     var map = L.map('map').setView([48.4506343914947, -68.5289754901558], 12);
 
 
-   
+
 
     //Chargement de la carte de base
     L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
@@ -15,8 +11,8 @@ $('document').ready(function () {
     }).addTo(map);
 
     //Ajout d'un marker avec popup
-    var marker = L.marker([48.4532573993011, -68.5227191989171]).addTo(map);
-    marker.bindPopup("Je fait des tests");
+    //var marker = L.marker([48.4532573993011, -68.5227191989171]).addTo(map);
+    //marker.bindPopup("Je fait des tests");
 
     //Ajout d'un popup Onclick sur la map 
     var popup = L.popup();
@@ -30,29 +26,45 @@ $('document').ready(function () {
     }
     map.on('click', onMapClick);
 
-
-    var LeafIcon = L.Icon({
-
-        iconUrl: "http://icon-icons.com/icons2/851/PNG/512/pikachu_icon-icons.com_67535.png",
-        iconSize: [38, 95],
-    }
-    );
-   
+    //instanciation des layers
     var geojsonRabattement = new L.GeoJSON();
     var geojsonVert = new L.GeoJSON();
     var geojsonBleue = new L.GeoJSON();
     var geojsonRouge = new L.GeoJSON();
 
-
-
+    //ajout des layers à la carte
     geojsonRabattement.addTo(map);
     geojsonVert.addTo(map);
     geojsonBleue.addTo(map);
     geojsonRouge.addTo(map);
 
-    geojsonBleue.options.iconUrl
+    
 
-    function filtreZone(regex, data) {
+    //test d'icône
+    var okIcon = L.icon({
+        iconUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/c/c3/NotCommons-emblem-copyrighted.svg/50px-NotCommons-emblem-copyrighted.svg.png',
+        iconSize: [60, 50]
+    });
+
+    //Lecture GeoJson
+    $.getJSON("Arrets.json", function (data) {
+        var array = data.features;
+        geojsonRouge.addData(filtreZone(/rouge/, array)/*,
+            {
+                pointToLayer: function (feature, latlng) {
+                    return L.marker(latlng,
+                        {
+                            icon: okIcon
+                        });
+                }
+            }*/);
+
+        geojsonVert.addData(filtreZone(/verte/, array));
+        geojsonBleue.addData(filtreZone(/bleue/, array));
+        geojsonRabattement.addData(filtreZone(/rabattement/, array));
+
+        function filtreZone(regex, data) {
+        /*Filtrage des données geojson avec un regex (si le type de point contient le regex, il sera dans la liste de données)*/
         var array = [];
         for (i = 2; i < data.length; ++i) {
             var str = "";
@@ -63,23 +75,17 @@ $('document').ready(function () {
         }
         return array;
     }
-
-    //Lecture GeoJson
-    $.getJSON("Arrets.json", function (data) {
-        var array = data.features;
-        geojsonRouge.addData(filtreZone(/rouge/, array));
-        geojsonVert.addData(filtreZone(/verte/, array));
-        geojsonBleue.addData(filtreZone(/bleue/, array));
-        geojsonRabattement.addData(filtreZone(/rabattement/, array));
     });
-    var overlayMaps = {
-        "Ligne rouge": geojsonRouge,
-        "Zone Verte": geojsonVert,
-        "Zone Bleue": geojsonBleue,
-        "Point de rabattement": geojsonRabattement
-    };
 
-    L.control.layers(null, overlayMaps).addTo(map);
+
+    //var overlayMaps = {
+    //    "Ligne rouge": geojsonRouge,
+    //    "Zone Verte": geojsonVert,
+    //    "Zone Bleue": geojsonBleue,
+    //    "Point de rabattement": geojsonRabattement
+    //};
+
+    //L.control.layers(null, overlayMaps).addTo(map);
 
 });
 
