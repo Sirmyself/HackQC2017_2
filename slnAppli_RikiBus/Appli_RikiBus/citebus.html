@@ -17,10 +17,35 @@
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
     <!-- Font -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <!-- Script map -->
     <script src="Citebus.js"></script>
+    <!-- Link style -->
+    <link rel="stylesheet" href="App_Themes/style.css" />
 </head>
 <body>
-    <div id="map" style="width: 800px; height:300px; text-align: center; margin: auto;"> </div>
+    <!-- Navbar -->
+    <nav class="navbar navbar-default">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">Rimouski<b>BUS</b></a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="citebus.html">Citébus</a></li>
+                    <li><a href="taxibus.html">Taxibus</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
+    <!-- First Container -->
+    <div class="container-fluid bg-1 text-center">
+        <div id="map" style="width: 800px; height:300px; text-align: center; margin: auto;"> </div>
+    </div>
 </body>
 </html>
