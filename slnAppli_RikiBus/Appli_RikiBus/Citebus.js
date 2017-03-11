@@ -9,7 +9,6 @@
 
     ////Ajout d'un marker avec popup
 
-    var geojsonLayer = new L.GeoJSON();
     var geojsonLayerCircuit = new L.GeoJSON();
     var geojsonCircuit11 = new L.GeoJSON();
     var geojsonCircuit21 = new L.GeoJSON();
@@ -30,8 +29,6 @@
     }
 
 
-    
-
     //Lecture GeoJson
     $.getJSON("ressources/fichiers_JSON/arretcitebus.json", function (data) {
         var iconRouge = L.icon({
@@ -42,17 +39,43 @@
             shadowSize: [41, 41],
             iconAnchor: [12, 41],
             shadowAnchor: [13, 41],
-            popupAnchor: [12, -2]
+            popupAnchor: [1, -27]
         });
 
-        geojsonLayer = L.geoJson(data, {
+        var iconOrange = L.icon({
+            iconUrl: 'ressources/img/Pointers/marker-orange.png',
+            shadowUrl: 'ressources/img/Pointers/marker-shadow.png',
+
+            iconSize: [25, 41],
+            shadowSize: [41, 41],
+            iconAnchor: [12, 41],
+            shadowAnchor: [13, 41],
+            popupAnchor: [1, -27]
+        });
+
+        var array = data.features;
+
+        var geojSonArretCircuit11 = new L.GeoJSON(filtreCircuit(/11/,array), {
             pointToLayer: function (feature, latlng) {
                 return L.marker(latlng)
+                    .bindPopup("<b>Arrêt</b> :" + feature.properties.Nom + "<br> Prochain arrêt " + getTemps(feature.properties.Horaire_SEM));
+            }
+        }).addTo(geojsonCircuit11);
+
+        var geojSonArretCircuit21 = new L.GeoJSON(filtreCircuit(/21/, array), {
+            pointToLayer: function (feature, latlng) {
+                return L.marker(latlng, { icon: iconRouge })
+                    .bindPopup("<b>Arrêt</b> :" + feature.properties.Nom + "<br> Prochain arrêt " + getTemps(feature.properties.Horaire_SEM));
+            }
+        }).addTo(geojsonCircuit21);
+
+        var geojSonArretCircuit31 = new L.GeoJSON(filtreCircuit(/31/, array), {
+            pointToLayer: function (feature, latlng) {
+                return L.marker(latlng, {icon: iconOrange})
                     //.on('click', markerClick(feature))    
                     .bindPopup("<b>Arrêt</b> " + feature.properties.Nom + "<br> Prochain arrêt " + getTemps(feature.properties.Horaire_SEM));
             }
-        }).addTo(mapCitebus)
-        .on('click', markerClick()); // Ajoute à la map et event onClick sur un marker
+        }).addTo(geojsonCircuit31);
     });
 
     $.getJSON("ressources/fichiers_JSON/circuitcitebus.json", function (data) {
@@ -67,7 +90,6 @@
     //});
 
     //Ajout layer dans map
-    geojsonLayer.addTo(mapCitebus);
     geojsonCircuit11.addTo(mapCitebus);
     geojsonCircuit21.addTo(mapCitebus);
     geojsonCircuit31.addTo(mapCitebus);
@@ -77,7 +99,6 @@
         "Circuit11": geojsonCircuit11,
         "Circuit21": geojsonCircuit21,
         "Circuit31": geojsonCircuit31,
-        "Arret": geojsonLayer
     };
 
     L.control.layers(null, overlayMaps).addTo(mapCitebus);
