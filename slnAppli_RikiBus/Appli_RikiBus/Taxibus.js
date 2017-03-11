@@ -25,10 +25,24 @@
 
     var geojsonLayer = new L.GeoJSON();
 
+    var array;
 
 
     //Lecture GeoJson
     $.getJSON("Arrets.json", function (json) {
-        geojsonLayer.addData(json).addTo(map); // this will show the info it in firebug console
+        array = json.features;
+        var allo = 1;
+        var allo = 1;
     });
+
+    var gne = 1; 
+
+    var arrayVert = array.slice(2,array.length-1).map(function (point) {
+        if (point.properties.Type_arret.includes('Zone verte'))
+            return point;
+
+    });
+
+    geojsonLayer.addData(arrayVert).addTo(map); 
+
 });
