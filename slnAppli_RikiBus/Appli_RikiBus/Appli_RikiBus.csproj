@@ -80,11 +80,20 @@
     <Content Include="img\STR\logoSocieteTransportRiki.png" />
     <Content Include="index.html" />
     <Content Include="informations.html" />
+    <Content Include="PagesMenu\PageCiteBus\Fonctionnement\Carte.html" />
+    <Content Include="PagesMenu\PageCiteBus\Fonctionnement\Tarifs.html" />
+    <Content Include="PagesMenu\PageCiteBus\Fonctionnement\ModeEmploi.html" />
+    <Content Include="PagesMenu\PageCiteBus\Reglements.html" />
+    <Content Include="PagesMenu\PageCiteBus\PointsVentes.html" />
+    <Content Include="PagesMenu\PageCiteBus\Simulation.html" />
     <Content Include="taxibus.html" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="PagesMenu\PageTaxiBus\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
