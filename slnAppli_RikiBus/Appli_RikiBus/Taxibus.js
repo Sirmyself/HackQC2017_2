@@ -76,30 +76,57 @@
                 return new L.Marker(latlng, { icon: redIcon });
             }
         });
-
-
-
+        
         //ajout des layers à la carte
         geojsonRabattement.addTo(map);
         geojsonVert.addTo(map);
         geojsonBleue.addTo(map);
         geojsonRouge.addTo(map);
+        
 
         //       geojsonRouge.addData(filtreZone(/rouge/, array));
         //geojsonVert.addData(filtreZone(/verte/, array));
         //geojsonBleue.addData(filtreZone(/bleue/, array));
         //geojsonRabattement.addData(filtreZone(/rabattement/, array));
 
-        remplirTab(geojsonBleue);
+       
 
         function filtreZone(regex, data) {
             /*Filtrage des données geojson avec un regex (si le type de point contient le regex, il sera dans la liste de données)*/
+
+            
+            var sel;
+            switch (regex.source) {
+                case 'rabattement':
+                    sel = document.getElementById('rabattement');
+                    break;
+                case 'verte':
+                    sel = document.getElementById('verte');
+                    break;
+
+                case 'rouge':
+                    sel = document.getElementById('rouge');
+                    break;
+
+                case 'bleue':
+                    sel = document.getElementById('bleue');
+                    break;
+
+            }
+
             var array = [];
             for (i = 2; i < data.length; ++i) {
                 var str = "";
+            
+
                 str = data[i].properties.Type_arret;
                 if (regex.test(str)) {
                     array[array.length] = data[i];
+                    var opt = document.createElement('option');
+                    opt.innerHTML = data[i].properties.CODE;
+                    opt.value = data[i];
+                    sel.appendChild(opt);
+
                 }
             }
             return array;
@@ -113,18 +140,7 @@
         };
 
         L.control.layers(null, overlayMaps).addTo(map);
-
-        function remplirTab(tableau) {
-           
-            var sel = document.getElementById('Depart');
-            for (var i = 0; i < tableau.length; i++) {
-                var opt = document.createElement('option');
-                opt.innerHTML = tableau[i];
-                opt.value = tableau[i].properties.CODE;
-                sel.appendChild(opt);
-            }
-        }
-
+       
     });
 });
 
