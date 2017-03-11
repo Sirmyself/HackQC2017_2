@@ -70,7 +70,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="icon.js" />
     <Content Include="Taxibus.js" />
     <Content Include="citebus.html" />
     <Content Include="Citebus.js" />
