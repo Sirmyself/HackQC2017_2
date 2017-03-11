@@ -10,6 +10,9 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={
 
 
 //Loading du GeoJson
+var layerArretcitebus = L.geoJSON().addTo(mapCitebus);
+
 $.getJSON("arretcitebus.json", function (json) {
-    var marker = L.marker([51.5, -0.09]).addTo(mapCitebus);
+    layerArretcitebus.addData(json);
+
 });
