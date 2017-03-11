@@ -59,7 +59,8 @@
         var geojSonArretCircuit11 = new L.GeoJSON(filtreCircuit(/11/,array), {
             pointToLayer: function (feature, latlng) {
                 return L.marker(latlng)
-                    .bindPopup("<b>Arrêt</b> :" + feature.properties.Nom + "<br> Prochain arrêt " + getTemps(feature.properties.Horaire_SEM));
+                    .on('click', markerClick)
+                    .bindPopup("<b>Circuit</b> " +feature.properties.Circuit + "<br> <b>Arrêt</b> :" +feature.properties.Nom + "<br> Prochain arrêt " +getTemps(feature.properties.Horaire_SEM));
             }
         }).addTo(geojsonCircuit11);
 
@@ -68,7 +69,8 @@
         var geojSonArretCircuit21 = new L.GeoJSON(filtreCircuit(/21/, array), {
             pointToLayer: function (feature, latlng) {
                 return L.marker(latlng, { icon: iconRouge })
-                    .bindPopup("<b>Arrêt</b> :" + feature.properties.Nom + "<br> Prochain arrêt " + getTemps(feature.properties.Horaire_SEM));
+                    .on('click', markerClick)
+                    .bindPopup("<b>Circuit</b> " + feature.properties.Circuit + "<br> <b>Arrêt</b> :" + feature.properties.Nom + "<br> Prochain arrêt " + getTemps(feature.properties.Horaire_SEM));
             }
         }).addTo(geojsonCircuit21);
 
@@ -78,7 +80,7 @@
             pointToLayer: function (feature, latlng) {
                 return L.marker(latlng, {icon: iconOrange})
                     .on('click', markerClick)    
-                    .bindPopup("<b>Arrêt</b> " + feature.properties.Nom + "<br> Prochain arrêt " + getTemps(feature.properties.Horaire_SEM));
+                    .bindPopup("<b>Circuit</b> " + feature.properties.Circuit + "<br> <b>Arrêt</b> " + feature.properties.Nom + "<br> Prochain arrêt " + getTemps(feature.properties.Horaire_SEM));
             }
         }).addTo(geojsonCircuit31);
     });
@@ -148,3 +150,19 @@ function getTemps(horaire)
     return "demain à " + debut;
 }
 
+// Évènement click sur un marker
+function markerClick(e)
+{
+    var heures = e.target.feature.properties.Horaire_SEM.split(", ");
+    var contenuHeures = '<p>' + heures + '</p>';
+    //var x = 0;
+    //for (x = 0; x < heures.length; x++) {
+    //    contenuHeures += heures[x];
+    //}
+
+    contenuHeures += '</table>';
+
+    var contenu = '<h1>' + e.target.feature.properties.Nom + ' (Circuit ' + e.target.feature.properties.Circuit + ')</h1>' + contenuHeures;
+    $('#infoArret').html(contenu);
+
+}
