@@ -83,6 +83,10 @@
             text-align: center;
             color: #2f2f2f;
         }
+        .titreModeEmploiGray {
+            text-align: center;
+            color: white;
+        }
         .retrait {
             text-indent: 50px;
             text-align : left;
@@ -122,7 +126,7 @@
         <h3 class="margin">Service offert</h3>
         <p><b>Du lundi au vendredi :</b> offert toutes les 30 minutes aux heures de pointes et toutes les 60 minutes en période hors pointe.</p>
         <a href="../Simulation.html" class="btn btn-default btn-lg">
-            <span class="glyphicon glyphicon-search"></span> Rechercher un itinéraire
+            <span class="glyphicon glyphicon-search"></span> Voir l'horaire
         </a>
     </div>
 
@@ -177,8 +181,11 @@
 </div>
             <!-- 2eme conteneur -->
             <div class="container-fluid bg-1 text-center">
+
+
+              
                 <!-- Poussettes -->
-                <div class="col-sm-4">
+                <div class="col-sm-6">
                     <center><img src="../../../ressources/img/Style/ligneGray.png" class="img-responsive margin" style="width:100%" alt="Image"></center>
                     <div class="titreModeEmploiGray">Poussettes</div>
                     </br>
@@ -188,7 +195,7 @@
 
                 </div>
                 <!-- Mineurs - 10 ans -->
-                <div class="col-sm-4">
+                <div class="col-sm-6">
 
                     <center><img src="../../../ressources/img/Style/ligneGray.png" class="img-responsive margin" style="width:100%" alt="Image"></center>
                     <div class="titreModeEmploiGray">Enfants âgés de moins de 10 ans </div>
@@ -199,13 +206,17 @@
                     </p>
 
                 </div>
-                <!-- Tableau prix -->
-                <div class="col-sm-4">
+                </div>
+          <div class="container-fluid bg-2 text-center">
+         
+            <!-- Tableau prix -->
+            <div class="col-sm-6">
 
-                    <center><img src="../../../ressources/img/Style/ligneGray.png" class="img-responsive margin" style="width:100%" alt="Image"></center>
-                    <div class="titreModeEmploiGray">Tarifs</div>
-                    </br>
+                <center><img src="../../../ressources/img/Style/ligneWhite.png" class="img-responsive margin" style="width:100%" alt="Image"></center>
+                <div class="titreModeEmploiWhite">Tarifs</div>
+                </br>
 
+                <div class=" text-left">
                     <table style="width:100%">
 
                         <tr>
@@ -228,11 +239,31 @@
                             <td>32.85 $</td>
                             <td>23.85 $</td>
                         </tr>
-                    </table>
+                    </table></div>
 
 
                 </div>
+            <!-- Mode de paiement-->
+            <div class="col-sm-6">
+                <center><img src="../../../ressources/img/Style/ligneWhite.png" class="img-responsive margin" style="width:100%" alt="Image"></center>
+                <div class="titreModeEmploiWhite">Modes de paiement</div></br>
+                <div class=" text-left">
+                <ul>
+                   <li>Laissez-passer mensuel</li> 
+                    <li>
+                        Billet
+                    </li>
+                    <li> Argent comptant en monnaie exacte.</li>
+             </ul></div>
             </div>
+
+
+
+            </div>
+
+
+
+
             <!-- 3eme conteneur -->
             <div class="container-fluid bg-3 text-center">
                 <!-- Tarifs reduit -->
@@ -324,7 +355,5 @@
     <!-- Footer -->
     <footer class="container-fluid bg-4 text-center">
         <p>Fait par l'équipe de <b>Euzautes</b> au Hack Qc 2017 </p>
-    </footer>>
-
-</body>
+    </footer>   </body>
 </html>
