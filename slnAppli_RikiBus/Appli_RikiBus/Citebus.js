@@ -8,36 +8,27 @@
     }).addTo(mapCitebus);
 
     ////Ajout d'un marker avec popup
-    //var marker = L.marker([48.4532573993011, -68.5227191989171]).addTo(map);
-    //marker.bindPopup("Je fait des tests");
 
-    //Ajout d'un popup Onclick sur la map 
-    //var popup = L.popup();
-
-    //function onMapClick(e) {
-    //    popup
-    //        .setLatLng(e.latlng)
-    //        .setContent("Tu as cliqués sur la map à " + e.latlng.toString())
-
-    //        .openOn(map);
-    //}
-    //map.on('click', onMapClick);
-
-    var arrayArretCitebus;
-    var arrayCircuitCitebus;
     var geojsonLayer = new L.GeoJSON();
     var geojsonLayerCircuit = new L.GeoJSON();
 
     //Lecture GeoJson
-    $.getJSON("arretcitebus.json", function (json) {
-        arrayArretCitebus = json.features;
-        //geojsonLayer.addData(json);
+    $.getJSON("arretcitebus.json", function (data) {
+        L.geoJson(data, {
+            pointToLayer: function (feature, latlng) {
+                return L.marker(latlng)
+                    .bindPopup("<b>Circuit</b> :" + feature.properties.Circuit);
+            }
+        }).addTo(mapCitebus);
     });
     
     $.getJSON("circuitcitebus.json", function (jsoncircuit) {
-        arrayCircuitCitebus = jsoncircuit.features;
-        //geojsonLayerCircuit.addData(jsoncircuit);
+        geojsonLayerCircuit.addData(jsoncircuit);
     });
+
+    //Ajout layer dans map
+    geojsonLayer.addTo(mapCitebus);
+    geojsonLayerCircuit.addTo(mapCitebus);
 
 
     var overlayMaps = {
