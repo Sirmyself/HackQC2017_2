@@ -20,6 +20,8 @@
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -40,6 +42,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -58,8 +64,12 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="arretcitebus.json" />
-    <Content Include="circuitcitebus.json" />
+    <Content Include="App_Themes\Patch_.css" />
+    <Content Include="App_Themes\style.css" />
+    <Content Include="ressources\fichiers_JSON\arretcitebus.json" />
+    <Content Include="ressources\fichiers_JSON\circuitcitebus.json" />
+    <Content Include="ressources\fichiers_JSON\Arrets.json" />
+    <Content Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -68,35 +78,45 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="icon.js" />
+    <Content Include="ressources\img\Pointers\marker-blue.png" />
+    <Content Include="ressources\img\Pointers\marker-green.png" />
+    <Content Include="ressources\img\Pointers\marker-orange.png" />
+    <Content Include="ressources\img\Pointers\marker-red.png" />
+    <Content Include="ressources\img\Pointers\marker-shadow.png" />
+    <Content Include="ressources\img\Pointers\marker-yellow.png" />
+    <Content Include="Taxibus.js" />
     <Content Include="citebus.html" />
     <Content Include="Citebus.js" />
-    <Content Include="img\Citebus\citebus.jpg" />
-    <Content Include="img\Citebus\citebusneige.jpg" />
-    <Content Include="img\Citebus\panneaucitebus.jpg" />
-    <Content Include="img\Citebus\petitemamiebus.jpg" />
-    <Content Include="img\icon\boutique.png" />
-    <Content Include="img\icon\cell.png" />
-    <Content Include="img\icon\tirelire.png" />
-    <Content Include="img\RimouskiCity\fleuveriki.jpg" />
-    <Content Include="img\RimouskiCity\logoRiki.png" />
-    <Content Include="img\RimouskiCity\RimouskiMapCarte.jpg" />
-    <Content Include="img\STR\logoSocieteTransportRiki.png" />
+    <Content Include="ressources\img\Citebus\citebus.jpg" />
+    <Content Include="ressources\img\Citebus\citebusneige.jpg" />
+    <Content Include="ressources\img\Citebus\panneaucitebus.jpg" />
+    <Content Include="ressources\img\Citebus\petitemamiebus.jpg" />
+    <Content Include="ressources\img\RimouskiCity\fleuveriki.jpg" />
+    <Content Include="ressources\img\RimouskiCity\logoRiki.png" />
+    <Content Include="ressources\img\RimouskiCity\RimouskiMapCarte.jpg" />
+    <Content Include="ressources\img\STR\logoSocieteTransportRiki.png" />
     <Content Include="index.html" />
     <Content Include="informations.html" />
-    <Content Include="PagesMenu\PageCiteBus\Fonctionnement\Carte.html" />
-    <Content Include="PagesMenu\PageCiteBus\Fonctionnement\Tarifs.html" />
-    <Content Include="PagesMenu\PageCiteBus\Fonctionnement\ModeEmploi.html" />
-    <Content Include="PagesMenu\PageCiteBus\Reglements.html" />
-    <Content Include="PagesMenu\PageCiteBus\PointsVentes.html" />
-    <Content Include="PagesMenu\PageCiteBus\Simulation.html" />
     <Content Include="taxibus.html" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="PagesMenu\PageTaxiBus\" />
+    <Folder Include="App_Themes\Theme1\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -123,6 +143,7 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
