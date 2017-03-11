@@ -60,6 +60,7 @@
   <ItemGroup>
     <Content Include="arretcitebus.json" />
     <Content Include="circuitcitebus.json" />
+    <Content Include="Arrets.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -68,6 +69,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Taxibus.js" />
     <Content Include="citebus.html" />
     <Content Include="Citebus.js" />
     <Content Include="index.html" />
