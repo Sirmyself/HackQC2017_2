@@ -66,7 +66,7 @@
 
     //Ajout layer dans map
     geojsonLayer.addTo(mapCitebus);
-    //L.geoJSON(geojsonCircuit11).addTo(mapCitebus);
+    //L.geoJSON(geojsonCircuit11, style: function).addTo(mapCitebus);
     geojsonCircuit21.addTo(mapCitebus);
     geojsonCircuit31.addTo(mapCitebus);
 
