@@ -90,6 +90,8 @@
         //geojsonBleue.addData(filtreZone(/bleue/, array));
         //geojsonRabattement.addData(filtreZone(/rabattement/, array));
 
+        remplirTab(geojsonBleue);
+
         function filtreZone(regex, data) {
             /*Filtrage des données geojson avec un regex (si le type de point contient le regex, il sera dans la liste de données)*/
             var array = [];
@@ -111,6 +113,17 @@
         };
 
         L.control.layers(null, overlayMaps).addTo(map);
+
+        function remplirTab(tableau) {
+           
+            var sel = document.getElementById('Depart');
+            for (var i = 0; i < tableau.length; i++) {
+                var opt = document.createElement('option');
+                opt.innerHTML = tableau[i];
+                opt.value = tableau[i].properties.CODE;
+                sel.appendChild(opt);
+            }
+        }
 
     });
 });
