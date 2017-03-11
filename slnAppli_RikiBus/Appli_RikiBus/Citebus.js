@@ -7,7 +7,7 @@
         attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(mapCitebus);
 
-    ////Ajout d'un marker avec popup
+    ////Initialisation des Layers
 
     var geojsonLayerCircuit = new L.GeoJSON();
     var geojsonCircuit11 = new L.GeoJSON();
@@ -29,7 +29,7 @@
     }
 
 
-    //Lecture GeoJson
+    //Lecture GeoJson et séparation par Circuit
     $.getJSON("ressources/fichiers_JSON/arretcitebus.json", function (data) {
         var iconRouge = L.icon({
             iconUrl: 'ressources/img/Pointers/marker-red.png',
@@ -55,25 +55,32 @@
 
         var array = data.features;
 
+        //Circuit 11
         var geojSonArretCircuit11 = new L.GeoJSON(filtreCircuit(/11/,array), {
             pointToLayer: function (feature, latlng) {
                 return L.marker(latlng)
-                    .bindPopup("<b>Arrêt</b> :" + feature.properties.Nom + "<br> Prochain arrêt " + getTemps(feature.properties.Horaire_SEM));
+                    .on('click', markerClick)
+                    .bindPopup("<b>Circuit</b> " +feature.properties.Circuit + "<br> <b>Arrêt</b> :" +feature.properties.Nom + "<br> Prochain arrêt " +getTemps(feature.properties.Horaire_SEM));
             }
         }).addTo(geojsonCircuit11);
 
+
+        //Circuit 21
         var geojSonArretCircuit21 = new L.GeoJSON(filtreCircuit(/21/, array), {
             pointToLayer: function (feature, latlng) {
                 return L.marker(latlng, { icon: iconRouge })
-                    .bindPopup("<b>Arrêt</b> :" + feature.properties.Nom + "<br> Prochain arrêt " + getTemps(feature.properties.Horaire_SEM));
+                    .on('click', markerClick)
+                    .bindPopup("<b>Circuit</b> " + feature.properties.Circuit + "<br> <b>Arrêt</b> :" + feature.properties.Nom + "<br> Prochain arrêt " + getTemps(feature.properties.Horaire_SEM));
             }
         }).addTo(geojsonCircuit21);
 
+
+        //Circuit 31
         var geojSonArretCircuit31 = new L.GeoJSON(filtreCircuit(/31/, array), {
             pointToLayer: function (feature, latlng) {
                 return L.marker(latlng, {icon: iconOrange})
-                    //.on('click', markerClick(feature))    
-                    .bindPopup("<b>Arrêt</b> " + feature.properties.Nom + "<br> Prochain arrêt " + getTemps(feature.properties.Horaire_SEM));
+                    .on('click', markerClick)    
+                    .bindPopup("<b>Circuit</b> " + feature.properties.Circuit + "<br> <b>Arrêt</b> " + feature.properties.Nom + "<br> Prochain arrêt " + getTemps(feature.properties.Horaire_SEM));
             }
         }).addTo(geojsonCircuit31);
     });
@@ -127,7 +134,9 @@ function getTemps(horaire)
         heures[y] = parseInt(temp * 60) + parseInt(heures[y][1]);
     }
 
-    minute = 1334; //////////////////////////////////////////////////Valeur en minutes pour le temps de la journée
+    var date = new Date();
+    minute = (parseInt(date.getHours()) * 60) + parseInt(date.getMinutes());
+    //minute = 1334; //////////////////////////////////////////////////Valeur en minutes pour le temps de la journée
 
     var i = 0;
     for (i = 0; i < heures.length; i++)
@@ -144,5 +153,16 @@ function getTemps(horaire)
 // Évènement click sur un marker
 function markerClick(e)
 {
-    $("unArret").append("<p>test</p>");
+    var heures = e.target.feature.properties.Horaire_SEM.split(", ");
+    var contenuHeures = '<p>' + heures + '</p>';
+    //var x = 0;
+    //for (x = 0; x < heures.length; x++) {
+    //    contenuHeures += heures[x];
+    //}
+
+    contenuHeures += '</table>';
+
+    var contenu = '<h1>' + e.target.feature.properties.Nom + ' (Circuit ' + e.target.feature.properties.Circuit + ')</h1>' + contenuHeures;
+    $('#infoArret').html(contenu);
+
 }
