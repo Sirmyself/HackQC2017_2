@@ -8,40 +8,28 @@
     }).addTo(mapCitebus);
 
     ////Ajout d'un marker avec popup
-    //var marker = L.marker([48.4532573993011, -68.5227191989171]).addTo(map);
-    //marker.bindPopup("Je fait des tests");
-
-    //Ajout d'un popup Onclick sur la map 
-    //var popup = L.popup();
-
-    //function onMapClick(e) {
-    //    popup
-    //        .setLatLng(e.latlng)
-    //        .setContent("Tu as cliqués sur la map à " + e.latlng.toString())
-
-    //        .openOn(map);
-    //}
-    //map.on('click', onMapClick);
 
     var geojsonLayer = new L.GeoJSON();
     var geojsonLayerCircuit = new L.GeoJSON();
 
-
-    var geojsonMarkerOptions = {
-    fillColor: "#ff7800",
-    color: "#ff0000",
-    weight: 1,
-    opacity: 1,
-    fillOpacity: 0.8
-};
-
     //Lecture GeoJson
-    $.getJSON("arretcitebus.json", function (json) {
-        geojsonLayer.addData(json).addTo(mapCitebus); 
+    $.getJSON("arretcitebus.json", function (data) {
+        L.geoJson(data, {
+            pointToLayer: function (feature, latlng) {
+                return L.marker(latlng)
+                    .bindPopup("<b>Arrêt</b> :" + feature.properties.Nom + "<br> Prochain arrêt " + getTemps(feature.properties.Horaire_SEM));
+            }
+        }).addTo(mapCitebus);
     });
+    
     $.getJSON("circuitcitebus.json", function (jsoncircuit) {
-        geojsonLayerCircuit.addData(jsoncircuit).addTo(mapCitebus);
+        geojsonLayerCircuit.addData(jsoncircuit);
     });
+
+    //Ajout layer dans map
+    geojsonLayer.addTo(mapCitebus);
+    geojsonLayerCircuit.addTo(mapCitebus);
+
 
     var overlayMaps = {
         "Circuit": geojsonLayerCircuit,
@@ -50,3 +38,37 @@
 
     L.control.layers(null, overlayMaps).addTo(mapCitebus);
 });
+
+
+function getTemps(horaire)
+{
+    var heures = horaire.split(", ");
+    var x = 0;
+    for (x = 0; x < heures.length; x++)
+    {
+        var temp = heures[x];
+        heures[x] = String(temp).split(":");
+    }
+
+    var y = 0;
+    for (y = 0; y < heures.length; y++) {
+        var temp = heures[y][0];
+        heures[y] = parseInt(temp * 60) + parseInt(heures[y][1]);
+    }
+
+    //var d = new Date();
+    //var hour = d.getHours();
+    //var minute = d.getMinutes();
+    //hour = 9;
+    minute = 1334;
+
+    var i = 0;
+    for (i = 0; i < heures.length; i++)
+    {
+        if (heures[i ] > minute)
+        {
+            return "dans " + (parseInt(heures[i]) - parseInt(minute)) + " minutes";
+        }
+    }
+    return "demain à " + heures[0];
+}
