@@ -7,9 +7,8 @@
         attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(mapCitebus);
 
-    ////Ajout d'un marker avec popup
+    ////Initialisation des Layers
 
-    var geojsonLayer = new L.GeoJSON();
     var geojsonLayerCircuit = new L.GeoJSON();
     var geojsonCircuit11 = new L.GeoJSON();
     var geojsonCircuit21 = new L.GeoJSON();
@@ -30,9 +29,7 @@
     }
 
 
-    
-
-    //Lecture GeoJson
+    //Lecture GeoJson et séparation par Circuit
     $.getJSON("ressources/fichiers_JSON/arretcitebus.json", function (data) {
         var iconRouge = L.icon({
             iconUrl: 'ressources/img/Pointers/marker-red.png',
@@ -42,15 +39,48 @@
             shadowSize: [41, 41],
             iconAnchor: [12, 41],
             shadowAnchor: [13, 41],
-            popupAnchor: [12, -2]
+            popupAnchor: [1, -27]
         });
 
-        L.geoJson(data, {
+        var iconOrange = L.icon({
+            iconUrl: 'ressources/img/Pointers/marker-orange.png',
+            shadowUrl: 'ressources/img/Pointers/marker-shadow.png',
+
+            iconSize: [25, 41],
+            shadowSize: [41, 41],
+            iconAnchor: [12, 41],
+            shadowAnchor: [13, 41],
+            popupAnchor: [1, -27]
+        });
+
+        var array = data.features;
+
+        //Circuit 11
+        var geojSonArretCircuit11 = new L.GeoJSON(filtreCircuit(/11/,array), {
+            pointToLayer: function (feature, latlng) {
+                return L.marker(latlng)
+                    .bindPopup("<b>Arrêt</b> :" + feature.properties.Nom + "<br> Prochain arrêt " + getTemps(feature.properties.Horaire_SEM));
+            }
+        }).addTo(geojsonCircuit11);
+
+
+        //Circuit 21
+        var geojSonArretCircuit21 = new L.GeoJSON(filtreCircuit(/21/, array), {
             pointToLayer: function (feature, latlng) {
                 return L.marker(latlng, { icon: iconRouge })
                     .bindPopup("<b>Arrêt</b> :" + feature.properties.Nom + "<br> Prochain arrêt " + getTemps(feature.properties.Horaire_SEM));
             }
-        }).addTo(mapCitebus);
+        }).addTo(geojsonCircuit21);
+
+
+        //Circuit 31
+        var geojSonArretCircuit31 = new L.GeoJSON(filtreCircuit(/31/, array), {
+            pointToLayer: function (feature, latlng) {
+                return L.marker(latlng, {icon: iconOrange})
+                    .on('click', markerClick)    
+                    .bindPopup("<b>Arrêt</b> " + feature.properties.Nom + "<br> Prochain arrêt " + getTemps(feature.properties.Horaire_SEM));
+            }
+        }).addTo(geojsonCircuit31);
     });
 
     $.getJSON("ressources/fichiers_JSON/circuitcitebus.json", function (data) {
@@ -65,8 +95,7 @@
     //});
 
     //Ajout layer dans map
-    geojsonLayer.addTo(mapCitebus);
-    //L.geoJSON(geojsonCircuit11, style: function).addTo(mapCitebus);
+    geojsonCircuit11.addTo(mapCitebus);
     geojsonCircuit21.addTo(mapCitebus);
     geojsonCircuit31.addTo(mapCitebus);
 
@@ -75,19 +104,24 @@
         "Circuit11": geojsonCircuit11,
         "Circuit21": geojsonCircuit21,
         "Circuit31": geojsonCircuit31,
-        "Arret": geojsonLayer
     };
 
     L.control.layers(null, overlayMaps).addTo(mapCitebus);
 });
 
-
+// Affiche les infos de temps pour un marker
 function getTemps(horaire)
 {
+    var debut;
     var heures = horaire.split(", ");
+    var original = heures.slice();
     var x = 0;
     for (x = 0; x < heures.length; x++)
     {
+        if (x == 0)
+        {
+            debut = heures[x];
+        }
         var temp = heures[x];
         heures[x] = String(temp).split(":");
     }
@@ -98,19 +132,29 @@ function getTemps(horaire)
         heures[y] = parseInt(temp * 60) + parseInt(heures[y][1]);
     }
 
-    //var d = new Date();
-    //var hour = d.getHours();
-    //var minute = d.getMinutes();
-    //hour = 9;
-    minute = 1334;
+    var date = new Date();
+    minute = (parseInt(date.getHours()) * 60) + parseInt(date.getMinutes());
+    //minute = 1334; //////////////////////////////////////////////////Valeur en minutes pour le temps de la journée
 
     var i = 0;
     for (i = 0; i < heures.length; i++)
     {
-        if (heures[i ] > minute)
+        if (heures[i] > minute)
         {
-            return "dans " + (parseInt(heures[i]) - parseInt(minute)) + " minutes";
+            return "dans " + (parseInt(heures[i]) - parseInt(minute)) + " minutes (" + original[i] + ")";
         }
     }
-    return "demain à " + heures[0];
+
+    return "demain à " + debut;
+}
+
+// Évènement click sur un marker
+function markerClick(e)
+{
+    var para = document.createElement("p");
+    var node = document.createTextNode(e.target.feature.properties.Nom);
+    para.appendChild(node);
+
+    var element = document.getElementById("infoArret");
+    element.appendChild(para);
 }
