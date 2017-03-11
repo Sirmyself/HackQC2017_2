@@ -24,25 +24,41 @@
     map.on('click', onMapClick);
 
     var geojsonLayer = new L.GeoJSON();
+    geojsonLayer.addTo(map);
 
-    var array;
-
+    function filtreZone(regex, data) {
+        var array = [];
+        for (i = 2; i < data.length; ++i) {
+            var str = "";
+            str = data[i].properties.Type_arret;
+            if (regex.test(str)) {
+                array[array.length] = data[i];
+            }
+        }
+        return array;
+    }
 
     //Lecture GeoJson
-    $.getJSON("Arrets.json", function (json) {
-        array = json.features;
-        var allo = 1;
-        var allo = 1;
+    $.getJSON("Arrets.json", function (data) {
+        var array = data.features;
+
+
+
+       geojsonLayer.addData(filtreZone(/rouge/,array));
     });
 
-    var gne = 1; 
+//   array = json.features;
 
-    var arrayVert = array.slice(2,array.length-1).map(function (point) {
-        if (point.properties.Type_arret.includes('Zone verte'))
-            return point;
 
-    });
+//    var gne = 1; 
 
-    geojsonLayer.addData(arrayVert).addTo(map); 
+//    var arrayVert = array.slice(2,array.length-1).map(function (point) {
+//        if (point.properties.Type_arret.includes('Zone verte'))
+//            return point;
+
+//    });
+
+//    geojsonLayer.addData(arrayVert).addTo(map); 
 
 });
+
