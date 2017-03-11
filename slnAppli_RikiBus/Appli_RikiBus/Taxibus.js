@@ -25,8 +25,6 @@
 
     var geojsonLayer = new L.GeoJSON();
 
-
-
     //Lecture GeoJson
     $.getJSON("Arrets.json", function (json) {
         geojsonLayer.addData(json).addTo(map); // this will show the info it in firebug console

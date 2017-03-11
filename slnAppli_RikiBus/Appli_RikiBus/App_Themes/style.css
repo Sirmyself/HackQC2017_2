@@ -50,3 +50,7 @@
         .navbar-nav li a:hover {
             color: #1abc9c !important;
         }
+
+        .leaflet-popup-content {
+            color: black;
+        }
