@@ -194,13 +194,6 @@ function markerClick(e)
         arrivee = e.target;
     }
 
-
-
-
-
-
-
-
     var heures = e.target.feature.properties.Horaire_SEM.split(", ");
     var AM = new Array();
     var PM = new Array();
@@ -215,10 +208,12 @@ function markerClick(e)
             PM[PM.length] = heures[i];
         }
     }
-    var contenuHeures = '<div>';
-    contenuHeures += '<table style="width:100%" > <tr><th> AM </th> <th> PM </th> </tr>';
+
+    var contenuHeures = '<div class="text-center">';
+    contenuHeures += '<table style="width:100%" > <tr><th style="text-align: center;"> Avant-midi </th> <th style="text-align: center;"> Après-midi </th> </tr>';
     var x = 0;
-    for (x = 0; x < heures.length; x++) {
+    for (x = 0; x < heures.length; x++)
+    {
         contenuHeures += '<tr>';
         if (x >= AM.length)
         {
@@ -228,18 +223,20 @@ function markerClick(e)
         {
             contenuHeures += '<td>' + AM[x] + '</td>';
         }
-        if (x >= PM.length) {
-            contenuHeures += '<td></td>';
-        }
-        else {
-            contenuHeures += '<td>' + PM[x] + '</td>';
-        }
+            if (x >= PM.length)
+            {
+                contenuHeures += '<td></td>';
+            }
+            else
+            {
+                contenuHeures += '<td>' + PM[x] + '</td>';
+            }
         contenuHeures += '</tr>';
     }
 
     contenuHeures += '</table>';
     contenuHeures += '</div>';
-    var contenu = '<h1>' + e.target.feature.properties.Nom + ' (Circuit ' + e.target.feature.properties.Circuit + ')</h1>' + contenuHeures;
+    var contenu = '<h1>Arrêt ' + e.target.feature.properties.Nom + ' (Circuit ' + e.target.feature.properties.Circuit + ')</h1>' + contenuHeures;
     $('#infoArret').html(contenu);
 
 }
