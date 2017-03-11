@@ -34,26 +34,46 @@
 
     //Lecture GeoJson
     $.getJSON("ressources/fichiers_JSON/Arrets.json", function (data) {
-        var iconRouge = L.icon({
-            iconUrl: 'ressources/img/Pointers/marker-red.png',
-            shadowUrl: 'ressources/img/Pointers/marker-shadow.png',
+        var nouvIcon = function (iconColor) {
+            return L.icon({
+                iconUrl: 'ressources/img/Pointers/marker-' + iconColor + '.png',
+                shadowUrl: 'ressources/img/Pointers/marker-shadow.png',
 
-            iconSize:     [25, 41],
-            shadowSize:   [41, 41],
-            iconAnchor:   [12, 41],
-            shadowAnchor: [13, 41],
-            popupAnchor:  [12, -2] 
-        });
+                iconSize: [25, 41],
+                shadowSize: [41, 41],
+                iconAnchor: [12, 41],
+                shadowAnchor: [13, 41],
+                popupAnchor: [12, -2]
+            });
+        };
+
+        var redIcon = nouvIcon("red");
+        var blueIcon = nouvIcon("blue");
+        var greenIcon = nouvIcon("green");
+        var yellowIcon = nouvIcon("yellow");
+
         var array = data.features;
 
-        
+
         //instanciation des layers
-        var geojsonRabattement = new L.GeoJSON();
-        var geojsonVert = new L.GeoJSON();
-        var geojsonBleue = new L.GeoJSON();
+        var geojsonRabattement = new L.GeoJSON(filtreZone(/rabattement/, array), {
+            pointToLayer: function (feature, latlng) {
+                return new L.Marker(latlng, { icon: yellowIcon });
+            }
+        });
+        var geojsonVert = new L.GeoJSON(filtreZone(/verte/, array), {
+            pointToLayer: function (feature, latlng) {
+                return new L.Marker(latlng, { icon: greenIcon });
+            }
+        });
+        var geojsonBleue = new L.GeoJSON(filtreZone(/bleue/, array), {
+            pointToLayer: function (feature, latlng) {
+                return new L.Marker(latlng, { icon: blueIcon });
+            }
+        });
         var geojsonRouge = new L.GeoJSON(filtreZone(/rouge/, array), {
             pointToLayer: function (feature, latlng) {
-                return new L.Marker(latlng, { icon: iconRouge });
+                return new L.Marker(latlng, { icon: redIcon });
             }
         });
 
@@ -65,10 +85,10 @@
         geojsonBleue.addTo(map);
         geojsonRouge.addTo(map);
 
- //       geojsonRouge.addData(filtreZone(/rouge/, array));
-        geojsonVert.addData(filtreZone(/verte/, array));
-        geojsonBleue.addData(filtreZone(/bleue/, array));
-        geojsonRabattement.addData(filtreZone(/rabattement/, array));
+        //       geojsonRouge.addData(filtreZone(/rouge/, array));
+        //geojsonVert.addData(filtreZone(/verte/, array));
+        //geojsonBleue.addData(filtreZone(/bleue/, array));
+        //geojsonRabattement.addData(filtreZone(/rabattement/, array));
 
         function filtreZone(regex, data) {
             /*Filtrage des données geojson avec un regex (si le type de point contient le regex, il sera dans la liste de données)*/
@@ -84,10 +104,10 @@
         }
 
         var overlayMaps = {
-            "Ligne rouge": geojsonRouge,
-            "Zone Verte": geojsonVert,
-            "Zone Bleue": geojsonBleue,
-            "Point de rabattement": geojsonRabattement
+            "1 - Ligne rouge": geojsonRouge,
+            "2 - Zone Verte": geojsonVert,
+            "3 - Zone Bleue": geojsonBleue,
+            "4 - Point de rabattement": geojsonRabattement
         };
 
         L.control.layers(null, overlayMaps).addTo(map);
