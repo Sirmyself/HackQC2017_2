@@ -85,6 +85,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="icon.js" />
+    <Content Include="ressources\img\Style\ligneGreen.PNG" />
     <Content Include="ressources\img\Pointers\marker-blue.png" />
     <Content Include="ressources\img\Pointers\marker-green.png" />
     <Content Include="ressources\img\Pointers\marker-orange.png" />
