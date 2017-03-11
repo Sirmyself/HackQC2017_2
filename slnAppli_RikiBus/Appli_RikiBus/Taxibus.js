@@ -34,15 +34,7 @@ $('document').ready(function () {
     var LeafIcon = L.Icon({
 
         iconUrl: "http://icon-icons.com/icons2/851/PNG/512/pikachu_icon-icons.com_67535.png",
-        iconRetinaUrl: 'my-icon@2x.png',
         iconSize: [38, 95],
-        iconAnchor: [22, 94],
-        popupAnchor: [-3, -76],
-        shadowUrl: 'my-icon-shadow.png',
-        shadowRetinaUrl: 'my-icon-shadow@2x.png',
-        shadowSize: [68, 95],
-        shadowAnchor: [22, 94]
-
     }
     );
    
