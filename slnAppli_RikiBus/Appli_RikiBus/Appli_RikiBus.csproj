@@ -19,6 +19,7 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -65,6 +66,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="citebus.html" />
+    <Content Include="index.html" />
+    <Content Include="informations.html" />
+    <Content Include="taxibus.html" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
