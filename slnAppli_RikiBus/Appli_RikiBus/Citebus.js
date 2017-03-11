@@ -1,4 +1,8 @@
-﻿$('document').ready(function () {
+﻿var depart;
+var arrivee;
+var etape = 0;
+
+$('document').ready(function () {
     // initialization de la map
     var mapCitebus = L.map('map').setView([48.4506343914947, -68.5289754901558], 12);
 
@@ -153,14 +157,28 @@ function getTemps(horaire)
 // Évènement click sur un marker
 function markerClick(e)
 {
+    if (etape == 0)
+    {
+        depart = e.target;
+    }
+    else
+    {
+        arrivee = e.target;
+    }
+
+
+
+
+
+
+
+
     var heures = e.target.feature.properties.Horaire_SEM.split(", ");
     var contenuHeures = '<p>' + heures + '</p>';
     //var x = 0;
     //for (x = 0; x < heures.length; x++) {
     //    contenuHeures += heures[x];
     //}
-
-    contenuHeures += '</table>';
 
     var contenu = '<h1>' + e.target.feature.properties.Nom + ' (Circuit ' + e.target.feature.properties.Circuit + ')</h1>' + contenuHeures;
     $('#infoArret').html(contenu);
