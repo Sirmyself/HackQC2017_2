@@ -23,21 +23,21 @@
     //}
     //map.on('click', onMapClick);
 
+    var arrayArretCitebus;
+    var arrayCircuitCitebus;
     var geojsonLayer = new L.GeoJSON();
     var geojsonLayerCircuit = new L.GeoJSON();
 
     //Lecture GeoJson
     $.getJSON("arretcitebus.json", function (json) {
-        geojsonLayer.addData(json);
+        arrayArretCitebus = json.features;
+        //geojsonLayer.addData(json);
     });
     
     $.getJSON("circuitcitebus.json", function (jsoncircuit) {
-        geojsonLayerCircuit.addData(jsoncircuit);
+        arrayCircuitCitebus = jsoncircuit.features;
+        //geojsonLayerCircuit.addData(jsoncircuit);
     });
-
-    //Ajout layer dans map
-    geojsonLayer.addTo(mapCitebus);
-    geojsonLayerCircuit.addTo(mapCitebus);
 
 
     var overlayMaps = {
