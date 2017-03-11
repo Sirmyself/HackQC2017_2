@@ -11,7 +11,7 @@ $('document').ready(function () {
     map = L.map('map').setView([48.4506343914947, -68.5289754901558], 12);
 
 
-
+    map.on('click', onMapClick);
 
     //Chargement de la carte de base
     L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
@@ -175,15 +175,15 @@ function position() {
 //}
 function onLocation(e) {
     var acc = e.accuracy / 2;
-    L.marker(e.latlng, acc).addTo(map).bindPopup("Votre position").icon.addClass("iconHidden");
+    L.marker(e.latlng, acc).addTo(map).bindPopup("Votre position").icon;
     //  L.circle(e.latlng, acc).addTo(map);
 
 }
 
 
-function fitrerRadius() {
+function filtrerRadius(e) {
 
-    var cercle = L.circle(map.getCenter(), 1000);
+    var cercle = L.circle(e.latlng, 1000);
     var collection = new L.GeoJSON();
     var temp = [];
     map.eachLayer(
@@ -230,4 +230,9 @@ function overlayMap(overlayFiltre)
 
 
     L.control.layers(null, overlayMaps).addTo(map);
+}
+
+function onMapClick(e) {
+    filtrerRadius(e);
+    
 }
