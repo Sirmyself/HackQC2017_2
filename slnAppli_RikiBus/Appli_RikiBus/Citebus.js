@@ -148,13 +148,3 @@ function getTemps(horaire)
     return "demain à " + debut;
 }
 
-// Évènement click sur un marker
-function markerClick(e)
-{
-    var para = document.createElement("p");
-    var node = document.createTextNode(e.target.feature.properties.Nom);
-    para.appendChild(node);
-
-    var element = document.getElementById("infoArret");
-    element.appendChild(para);
-}
