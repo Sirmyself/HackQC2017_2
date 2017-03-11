@@ -11,10 +11,41 @@
 
     var geojsonLayer = new L.GeoJSON();
     var geojsonLayerCircuit = new L.GeoJSON();
+    var geojsonCircuit11 = new L.GeoJSON();
+    var geojsonCircuit21 = new L.GeoJSON();
+    var geojsonCircuit31 = new L.GeoJSON();
+
+
+    //filtrage par circuit
+    function filtreCircuit(regex, data) {
+        var array = [];
+        for (i = 2; i < data.length; ++i) {
+            var str = "";
+            str = data[i].properties.Circuit;
+            if (regex.test(str)) {
+                array[array.length] = data[i];
+            }
+        }
+        return array;
+    }
+
+
+    
 
     //Lecture GeoJson
-    $.getJSON("arretcitebus.json", function (data) {
-        L.geoJson(data, {
+    $.getJSON("ressources/fichiers_JSON/arretcitebus.json", function (data) {
+        var iconRouge = L.icon({
+            iconUrl: 'ressources/img/Pointers/marker-red.png',
+            shadowUrl: 'ressources/img/Pointers/marker-shadow.png',
+
+            iconSize: [25, 41],
+            shadowSize: [41, 41],
+            iconAnchor: [12, 41],
+            shadowAnchor: [13, 41],
+            popupAnchor: [12, -2]
+        });
+
+        geojsonLayer = L.geoJson(data, {
             pointToLayer: function (feature, latlng) {
                 return L.marker(latlng)
                     //.on('click', markerClick(feature))    
@@ -23,18 +54,29 @@
         }).addTo(mapCitebus)
         .on('click', markerClick()); // Ajoute à la map et event onClick sur un marker
     });
-    
-    $.getJSON("circuitcitebus.json", function (jsoncircuit) {
-        geojsonLayerCircuit.addData(jsoncircuit);
-    });
 
-    // Ajout layer dans map
+    $.getJSON("ressources/fichiers_JSON/circuitcitebus.json", function (data) {
+        var array = data.features;
+        geojsonCircuit11.addData(filtreCircuit(/Circuit 11/, array));
+        geojsonCircuit21.addData(filtreCircuit(/Circuit 21/, array));
+        geojsonCircuit31.addData(filtreCircuit(/Circuit 31/, array));
+    });
+    
+    //$.getJSON("ressources/fichiers_JSON/circuitcitebus.json", function (jsoncircuit) {
+    //    geojsonLayerCircuit.addData(jsoncircuit);
+    //});
+
+    //Ajout layer dans map
     geojsonLayer.addTo(mapCitebus);
-    geojsonLayerCircuit.addTo(mapCitebus);
+    geojsonCircuit11.addTo(mapCitebus);
+    geojsonCircuit21.addTo(mapCitebus);
+    geojsonCircuit31.addTo(mapCitebus);
 
 
     var overlayMaps = {
-        "Circuit": geojsonLayerCircuit,
+        "Circuit11": geojsonCircuit11,
+        "Circuit21": geojsonCircuit21,
+        "Circuit31": geojsonCircuit31,
         "Arret": geojsonLayer
     };
 
