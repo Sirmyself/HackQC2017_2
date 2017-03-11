@@ -58,6 +58,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Themes\Patch_.css" />
     <Content Include="App_Themes\style.css" />
     <Content Include="arretcitebus.json" />
     <Content Include="circuitcitebus.json" />
