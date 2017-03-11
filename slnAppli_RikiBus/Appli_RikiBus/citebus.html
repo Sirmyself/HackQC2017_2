@@ -45,8 +45,83 @@
 
     <!-- First Container -->
     <div class="container-fluid bg-1 text-center">
-        <div id="map" style=" height:500px; text-align: center; margin: auto;" class="col-sm-6"> </div>
-        <div id="infoArret" class="col-sm-6"></div>
+        <h1>Citébus</h1>
+        <p>Cliquez sur un arrêt pour consulter les heures de passage</p>
+        <div id="map" style=" height:500px; text-align center; margin auto;" class="col-sm-12"> </div>
     </div>
+
+    <!-- Second Container -->
+    <div id="infoArret" class="container-fluid bg-2 text-center"></div>
+
+
+
+    <!-- Third Container (Grid) -->
+    <div class="container-fluid bg-3 text-left">
+        <div class="row">
+            <div class="col-sm-6">
+                <center><img src="../../../ressources/img/Style/ligneGreen.png" class="img-responsive margin" style="width:100%" alt="Image"></center>
+                <div class="titreModeEmploiGreen">Tarifs</div>
+                </br>
+                <table style="width:100%">
+                    <tr>
+                        <th>Type de trajet</th>
+                        <th>Prix régulier</th>
+                        <th>Prix réduit *</th>
+                    </tr>
+                    <tr>
+                        <td>Aller simple</td>
+                        <td>3.95 $</td>
+                        <td>2.65 $</td>
+                    </tr>
+                    <tr>
+                        <td>Laissez-passer mensuel</td>
+                        <td>102 $</td>
+                        <td>51 $</td>
+                    </tr>
+                    <tr>
+                        <td>Lot de dix billets</td>
+                        <td>32.85 $</td>
+                        <td>23.85 $</td>
+                    </tr>
+                </table>
+                </br>
+            </div>
+            <div class="col-sm-6">
+                <center><img src="../../../ressources/img/Style/ligneGreen.png" class="img-responsive margin" style="width:100%" alt="Image"></center>
+                <div class="titreModeEmploiGreen">Pour bénificier du tarif réduit, vous devez remplir les conditions suivantes</div>
+                </br>
+                <ul>
+                    <li>Être agé de 65 ans et plus.</li>
+                    <li>Présenter la carte de validation du statut étudiant émise par la Société des transports de Rimouski</li>
+                </ul>
+            </div>
+            <div class="col-sm-12 text-center">
+                <a href="PagesMenu/PageCiteBus/Fonctionnement/ModeEmploi.html" class="btn btn-default btn-lg text-center">Plus de renseignements sur Citébus</a>
+            </div>
+        </div>
+        </div>
+
+
+    <div class="container-fluid bg-2 text-center">
+        <h3 class="margin">Plus d'information</h3>
+        <p>
+            <center><b>Vous avez des questions sur votre service de transport en commun ? </b></center>
+            </br>
+        <p>
+            Que vous utilisiez CitéBus, TaxiBus ou les deux, nos téléphonistes vous conseillent
+            sur le trajet qui vous convient le mieux à vos besoins.
+        </p>
+        </p>
+        <a href="tel:4187235555" class="btn btn-default btn-lg">
+            <span class="glyphicon glyphicon-earphone"> </span> 418 723-5555
+        </a>
+        </br>
+        </br>
+    </div>
+    <!-- Footer -->
+    <footer class="container-fluid bg-4 text-center">
+        <p>Fait par l'équipe de <b>Euzautes</b> au Hack Qc 2017 </p>
+    </footer>
+
 </body>
 </html>
