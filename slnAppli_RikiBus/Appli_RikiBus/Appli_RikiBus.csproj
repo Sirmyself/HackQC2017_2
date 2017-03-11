@@ -74,6 +74,9 @@
     <Content Include="img\Citebus\citebusneige.jpg" />
     <Content Include="img\Citebus\panneaucitebus.jpg" />
     <Content Include="img\Citebus\petitemamiebus.jpg" />
+    <Content Include="img\icon\boutique.png" />
+    <Content Include="img\icon\cell.png" />
+    <Content Include="img\icon\tirelire.png" />
     <Content Include="img\RimouskiCity\fleuveriki.jpg" />
     <Content Include="img\RimouskiCity\logoRiki.png" />
     <Content Include="img\RimouskiCity\RimouskiMapCarte.jpg" />
