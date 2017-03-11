@@ -72,7 +72,7 @@
         var geojSonArretCircuit31 = new L.GeoJSON(filtreCircuit(/31/, array), {
             pointToLayer: function (feature, latlng) {
                 return L.marker(latlng, {icon: iconOrange})
-                    //.on('click', markerClick(feature))    
+                    .on('click', markerClick)    
                     .bindPopup("<b>Arrêt</b> " + feature.properties.Nom + "<br> Prochain arrêt " + getTemps(feature.properties.Horaire_SEM));
             }
         }).addTo(geojsonCircuit31);
@@ -127,7 +127,9 @@ function getTemps(horaire)
         heures[y] = parseInt(temp * 60) + parseInt(heures[y][1]);
     }
 
-    minute = 1334; //////////////////////////////////////////////////Valeur en minutes pour le temps de la journée
+    var date = new Date();
+    minute = (parseInt(date.getHours()) * 60) + parseInt(date.getMinutes());
+    //minute = 1334; //////////////////////////////////////////////////Valeur en minutes pour le temps de la journée
 
     var i = 0;
     for (i = 0; i < heures.length; i++)
@@ -144,5 +146,10 @@ function getTemps(horaire)
 // Évènement click sur un marker
 function markerClick(e)
 {
-    $("unArret").append("<p>test</p>");
+    var para = document.createElement("p");
+    var node = document.createTextNode(e.target.feature.properties.Nom);
+    para.appendChild(node);
+
+    var element = document.getElementById("infoArret");
+    element.appendChild(para);
 }
