@@ -17,6 +17,7 @@ $('document').ready(function () {
     var geojsonCircuit11 = new L.GeoJSON();
     var geojsonCircuit21 = new L.GeoJSON();
     var geojsonCircuit31 = new L.GeoJSON();
+    var geojsonPointInteret = new L.GeoJSON();
 
 
     //filtrage par circuit
@@ -87,6 +88,9 @@ $('document').ready(function () {
                     .bindPopup("<b>Circuit</b> " + feature.properties.Circuit + "<br> <b>Arrêt</b> " + feature.properties.Nom + "<br> Prochain arrêt " + getTemps(feature.properties.Horaire_SEM));
             }
         }).addTo(geojsonCircuit31);
+
+
+        
     });
 
     $.getJSON("ressources/fichiers_JSON/circuitcitebus.json", function (data) {
@@ -95,6 +99,27 @@ $('document').ready(function () {
         geojsonCircuit21.addData(filtreCircuit(/Circuit 21/, array));
         geojsonCircuit31.addData(filtreCircuit(/Circuit 31/, array));
     });
+
+    $.getJSON("ressources/fichiers_JSON/citebusPointInteret.json", function (data) {
+        var iconetoile = L.icon({
+            iconUrl: 'ressources/img/Pointers/star.png',
+            shadowUrl: null,
+
+            iconSize: [25, 25],
+            shadowSize: [41, 41],
+            iconAnchor: [12, 41],
+            shadowAnchor: [13, 41],
+            popupAnchor: [1, -27]
+        });
+
+        //Point d'interet
+        var geojsonPointInteretTemp = new L.GeoJSON(data, {
+            pointToLayer: function (feature, latlng) {
+                return L.marker(latlng, { icon: iconetoile })
+                    .bindPopup(feature.properties.Nom);
+            }
+        }).addTo(geojsonPointInteret);
+    })
     
     //$.getJSON("ressources/fichiers_JSON/circuitcitebus.json", function (jsoncircuit) {
     //    geojsonLayerCircuit.addData(jsoncircuit);
@@ -104,12 +129,15 @@ $('document').ready(function () {
     geojsonCircuit11.addTo(mapCitebus);
     geojsonCircuit21.addTo(mapCitebus);
     geojsonCircuit31.addTo(mapCitebus);
+    geojsonPointInteret.addTo(mapCitebus);
+    
 
 
     var overlayMaps = {
         "Circuit11": geojsonCircuit11,
         "Circuit21": geojsonCircuit21,
         "Circuit31": geojsonCircuit31,
+        "Point D'interet": geojsonPointInteret
     };
 
     L.control.layers(null, overlayMaps).addTo(mapCitebus);

@@ -76,6 +76,7 @@
     <Content Include="ressources\fichiers_JSON\circuitcitebus.json" />
     <Content Include="ressources\fichiers_JSON\Arrets.json" />
     <Content Include="packages.config" />
+    <Content Include="ressources\fichiers_JSON\citebusPointInteret.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -85,6 +86,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="icon.js" />
+    <Content Include="ressources\img\Pointers\star.png" />
     <Content Include="ressources\img\Style\ligneGreen.PNG" />
     <Content Include="ressources\img\Pointers\marker-blue.png" />
     <Content Include="ressources\img\Pointers\marker-green.png" />
