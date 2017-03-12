@@ -72,11 +72,13 @@
     <Content Include="PagesMenu\PageCiteBus\PointsVentes.html" />
     <Content Include="PagesMenu\PageCiteBus\Reglements.html" />
     <Content Include="PagesMenu\PageCiteBus\Simulation.html" />
+    <Content Include="pointVente.js" />
     <Content Include="ressources\fichiers_JSON\arretcitebus.json" />
     <Content Include="ressources\fichiers_JSON\circuitcitebus.json" />
     <Content Include="ressources\fichiers_JSON\Arrets.json" />
     <Content Include="packages.config" />
     <Content Include="ressources\fichiers_JSON\citebusPointInteret.json" />
+    <Content Include="ressources\fichiers_JSON\PointVente.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

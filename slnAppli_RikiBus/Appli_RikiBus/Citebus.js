@@ -1,6 +1,7 @@
-﻿var depart;
-var arrivee;
+﻿var depart = null;
+var arrivee = null;
 var etape = 0;
+var CircuitItinéraire;
 
 $('document').ready(function () {
     // initialization de la map
@@ -59,7 +60,7 @@ $('document').ready(function () {
         });
 
         var array = data.features;
-
+        
         //Circuit 11
         var geojSonArretCircuit11 = new L.GeoJSON(filtreCircuit(/11/,array), {
             pointToLayer: function (feature, latlng) {
@@ -182,12 +183,31 @@ function getTemps(horaire)
     return "demain à " + debut;
 }
 
+
+//Calcule de l'étinairaire
+function calculeEtinairaire()
+{
+    if(((depart != null) && (arrivee != null)) && (depart.properties.Circuit == arrivee.properties.Circuit) )
+    {
+        if(depart == arrivee)
+        {
+
+        }
+        else
+        {
+
+        }
+    }
+}
+
+
 // Évènement click sur un marker
 function markerClick(e)
 {
     if (etape == 0)
     {
         depart = e.target;
+        CircuitItinéraire = e.target.feature.properties.Circuit;
     }
     else
     {
@@ -240,3 +260,4 @@ function markerClick(e)
     $('#infoArret').html(contenu);
 
 }
+
