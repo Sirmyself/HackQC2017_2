@@ -1,10 +1,25 @@
-﻿var depart;
-var arrivee;
+﻿var depart = null;
+var arrivee = null;
 var etape = 0;
+var CircuitItinéraire;
 
 $('document').ready(function () {
+    var iconGrey = L.icon({
+        iconUrl: 'ressources/img/Pointers/marker-grey.png',
+        shadowUrl: 'ressources/img/Pointers/marker-shadow.png',
+
+        iconSize: [25, 41],
+        shadowSize: [41, 41],
+        iconAnchor: [12, 41],
+        shadowAnchor: [13, 41],
+        popupAnchor: [1, -27]
+    });
     // initialization de la map
-    var mapCitebus = L.map('map').setView([48.4506343914947, -68.5289754901558], 12);
+    var coord = [48.4506343914947, -68.5283054901558];
+    var mapCitebus = L.map('map').setView(coord, 16);
+    var marker = L.marker(coord, { icon: iconGrey }).addTo(mapCitebus);
+    marker.bindPopup("votre position actuelle");
+
 
     //Chargement de la carte de base
     L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
@@ -59,7 +74,7 @@ $('document').ready(function () {
         });
 
         var array = data.features;
-
+        
         //Circuit 11
         var geojSonArretCircuit11 = new L.GeoJSON(filtreCircuit(/11/,array), {
             pointToLayer: function (feature, latlng) {
@@ -182,12 +197,31 @@ function getTemps(horaire)
     return "demain à " + debut;
 }
 
+
+//Calcule de l'étinairaire
+function calculeEtinairaire()
+{
+    if(((depart != null) && (arrivee != null)) && (depart.properties.Circuit == arrivee.properties.Circuit) )
+    {
+        if(depart == arrivee)
+        {
+
+        }
+        else
+        {
+
+        }
+    }
+}
+
+
 // Évènement click sur un marker
 function markerClick(e)
 {
     if (etape == 0)
     {
         depart = e.target;
+        CircuitItinéraire = e.target.feature.properties.Circuit;
     }
     else
     {
@@ -240,3 +274,4 @@ function markerClick(e)
     $('#infoArret').html(contenu);
 
 }
+

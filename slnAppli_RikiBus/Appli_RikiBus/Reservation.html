@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
     <!-- Font -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-    <!-- Styling --> 
+    <!-- Styling -->
     <link rel="stylesheet" href="App_Themes/style.css" />
     <link rel="stylesheet" href="App_Themes/Patch_.css" />
 </head>
@@ -45,31 +45,26 @@
 
     <!-- First Container -->
     <div class="container-fluid bg-1 text-center">
-        <h3 class="margin">Besoin d'un transport à Rimouski?</h3>
-        <h1>Pensez à <b>Citébus</b> et <b>Taxibus</b>!</h1>
+        <h3 class="margin">Inscrivez vos informations</h3>
+    
     </div>
 
     <!-- Second Container -->
     <div class="container-fluid bg-2 text-center">
-        <h3 class="margin">Qu'est-ce que c'est?</h3>
-        <p>Taxibus et Citébus offre un service de transport en commun sur le territoire de la Ville de Rimouski au plus grand nombre de personnes possibles. Le niveau de service est basé sur la densité de la population dans le secteur donné et la distance 
-        à parcourir pour respecter les horaires. Ces éléments déterminent la fréquence, l'étendue et la nature de la desserte en transport en commun.</p>
+
+        <form action="Confirmation.html" methode="post">
+            Nom: <br />
+            <input type="text" name="nom" required /> <br />
+            Prenom: <br />
+            <input type="text" name="prenom" required /> <br />
+            Numéro de téléphone: <br />
+            <input type="text" name="numTel" pattern="(?:\(\d{3}\)|\d{3})[- ]?\d{3}[- ]?\d{4}" required /> <br />
+            Code Taxi: <br />
+            <input type="text" name="codeTaxi" pattern="[0-9]{5}" required /> <br /><br />
+            <input class="btn btn-default btn-lg" type="submit" value="Confirmer réservation" />
+        </form>
     </div>
 
-    <!-- Third Container (Grid) -->
-    <div class="container-fluid bg-3 text-center">
-        <h3 class="margin">De quel service ai-je besoin ?</h3><br>
-        <div class="row">
-            <div class="col-sm-6">
-                <p>Citébus offre un service de déplacement à l'intérieur même de la ville.</p>
-                <a href="citebus.html" class="btn btn-default btn-lg">J'ai besoin de <b>Citébus</b>!</a>
-            </div>
-            <div class="col-sm-6">
-                <p>Taxibus offre un service de déplacement du centre ville jusqu'aux extrémités de la ville.</p>
-                <a href="taxibus.html" class="btn btn-default btn-lg">J'ai besoin de <b>Taxibus</b>!</a>
-            </div>
-        </div>
-    </div>
 
     <!-- Footer -->
     <footer class="container-fluid bg-4 text-center">
@@ -77,3 +72,11 @@
     </footer>
 </body>
 </html>
+
+
+
+
+
+
+
+
