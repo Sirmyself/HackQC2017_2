@@ -102,28 +102,6 @@ $('document').ready(function () {
 
 
         function filtreZone(regex, data) {
-            /*Filtrage des données geojson avec un regex (si le type de point contient le regex, il sera dans la liste de données)*/
-
-
-            var sel;
-            switch (regex.source) {
-                case 'rabattement':
-                    sel = document.getElementById('rabattement');
-                    break;
-                case 'verte':
-                    sel = document.getElementById('verte');
-                    break;
-
-                case 'rouge':
-                    sel = document.getElementById('rouge');
-                    break;
-
-                case 'bleue':
-                    sel = document.getElementById('bleue');
-                    break;
-
-            }
-
             var array = [];
             for (i = 2; i < data.length; ++i) {
                 var str = "";
@@ -135,19 +113,11 @@ $('document').ready(function () {
                     var opt = document.createElement('option');
                     opt.innerHTML = data[i].properties.CODE;
                     opt.value = data[i];
-                    sel.appendChild(opt);
 
                 }
             }
             return array;
         }
-
-        overlayMaps = {
-            "1 - Zone Verte": geojsonVert,
-            "2 - Zone Bleue": geojsonBleue,
-            "3 - Ligne rouge": geojsonRouge,
-            "4 - Point de rabattement": geojsonRabattement
-        };
 
 
 
@@ -166,8 +136,8 @@ $('document').ready(function () {
 
 
 function position() {
-    //map.locate({ setView: true, maxZoom: 16, enableHighAccuracy: true });/*
-    map.setView([48.5406343914947, -68.4289054901558], 12);//*/
+    //map.locate({ setView: true, maxZoom: 17, enableHighAccuracy: true });/*
+    map.setView([48.5206343914947, -68.4578054901558], 17);//*/
 }
 
 function onLocation(e) {
@@ -229,5 +199,4 @@ function overlayMap(overlayFiltre)
 
 function onMapClick(e) {
     filtrerRadius(e);
-    
 }
