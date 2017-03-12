@@ -18,6 +18,7 @@
     <!-- Font -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
     <link href="App_Themes/style.css" rel="stylesheet" />
+    <link href="App_Themes/Patch_.css" rel="stylesheet" />
     <script src="Taxibus.js"></script>
 </head>
 <body>
@@ -51,48 +52,57 @@
    
         <h3>Arrêts de Taxibus</h3>
     </div>
-
+ 
     <!-- Second Container -->
-    <div style="color:black;" class="container-fluid bg-2 text-center">
-        <h3 class="margin">What Am I?</h3>
+    <div style="color:black;" class="col-sm-12 container-fluid bg-2 text-center">
+        <h2 class="margin">Faites votre trajet</h2>
+        <div style="color:black;" class="col-sm-4 container-fluid bg-2 text-center">
+            <h3>Départ</h3>
 
+            <div id="Depart"></div>
 
-        <label for="verte">Zone verte:</label>
-        <select id="verte"></select>
-        <label for="rouge">Zone rouge:</label>
-        <select id="rouge"></select>
-        <label for="bleue">Zone bleue:</label>
-        <select id="bleue"></select>
-        <label for="rabattement">Point de rabattement:</label>
-        <select id="rabattement"></select>
-
-        <div id="selection"></div>
-
-    </div>
+        </div>
         
-    <!-- Third Container (Grid) -->
-    <div class="container-fluid bg-3 text-center">
-        <h3 class="margin">Where To Find Me?</h3><br>
-        <div class="row">
-            <div class="col-sm-4">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                <img src="birds1.jpg" class="img-responsive margin" style="width:100%" alt="Image">
+    
+        <div style="color:black;" class="col-sm-4 container-fluid bg-2 text-center">
+            <div class="onoffswitch">
+                <input onclick="checkDepart()" type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" unchecked>
+                <label class="onoffswitch-label"  for="myonoffswitch">
+                    <span class="onoffswitch-inner"></span>
+                    <span class="onoffswitch-switch"></span>
+                </label>
             </div>
-            <div class="col-sm-4">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                <img src="birds2.jpg" class="img-responsive margin" style="width:100%" alt="Image">
-            </div>
-            <div class="col-sm-4">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                <img src="birds3.jpg" class="img-responsive margin" style="width:100%" alt="Image">
-            </div>
+        </div>
+        <div style="color:black;" class="col-sm-4 container-fluid bg-2 text-center">
+            <h3>Destination</h3>
+            <div id="Destination"></div>
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="container-fluid bg-4 text-center">
-        <p>Bootstrap Theme Made By <a href="https://www.w3schools.com">www.w3schools.com</a></p>
-    </footer>
+
+        <!-- Third Container (Grid) -->
+        <div class="container-fluid bg-3 text-center">
+            <h3 class="margin">Where To Find Me?</h3><br>
+            <div class="row">
+                <div class="col-sm-4">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    <img src="birds1.jpg" class="img-responsive margin" style="width:100%" alt="Image">
+                </div>
+                <div class="col-sm-4">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    <img src="birds2.jpg" class="img-responsive margin" style="width:100%" alt="Image">
+                </div>
+                <div class="col-sm-4">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    <img src="birds3.jpg" class="img-responsive margin" style="width:100%" alt="Image">
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="container-fluid bg-4 text-center">
+            <p>Bootstrap Theme Made By <a href="https://www.w3schools.com">www.w3schools.com</a></p>
+        </footer>
 
 </body>
 </html>

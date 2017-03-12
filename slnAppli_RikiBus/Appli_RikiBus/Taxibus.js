@@ -5,6 +5,9 @@ var geojsonVert;
 var geojsonBleue;
 var geojsonRouge;
 var geojsonRabattement;
+var Depart = true;
+var PointA;
+var PointB;
 
 $('document').ready(function () {
     // initialization de la map
@@ -25,12 +28,9 @@ $('document').ready(function () {
     //Ajout d'un popup Onclick sur la map 
     var popup = L.popup();
 
+    //liaison au toggle de la page
 
 
-
-
-
-    //test d'icône
 
     //Lecture GeoJson
     $.getJSON("ressources/fichiers_JSON/Arrets.json", function (data) {
@@ -105,24 +105,24 @@ $('document').ready(function () {
             /*Filtrage des données geojson avec un regex (si le type de point contient le regex, il sera dans la liste de données)*/
 
 
-            var sel;
-            switch (regex.source) {
-                case 'rabattement':
-                    sel = document.getElementById('rabattement');
-                    break;
-                case 'verte':
-                    sel = document.getElementById('verte');
-                    break;
+            //var sel;
+            //switch (regex.source) {
+            //    case 'rabattement':
+            //        sel = document.getElementById('rabattement');
+            //        break;
+            //    case 'verte':
+            //        sel = document.getElementById('verte');
+            //        break;
 
-                case 'rouge':
-                    sel = document.getElementById('rouge');
-                    break;
+            //    case 'rouge':
+            //        sel = document.getElementById('rouge');
+            //        break;
 
-                case 'bleue':
-                    sel = document.getElementById('bleue');
-                    break;
+            //    case 'bleue':
+            //        sel = document.getElementById('bleue');
+            //        break;
 
-            }
+            //}
 
             var array = [];
             for (i = 2; i < data.length; ++i) {
@@ -132,10 +132,10 @@ $('document').ready(function () {
                 str = data[i].properties.Type_arret;
                 if (regex.test(str)) {
                     array[array.length] = data[i];
-                    var opt = document.createElement('option');
-                    opt.innerHTML = data[i].properties.CODE;
-                    opt.value = data[i];
-                    sel.appendChild(opt);
+                    //var opt = document.createElement('option');
+                    //opt.innerHTML = data[i].properties.CODE;
+                    //opt.value = data[i];
+                    //sel.appendChild(opt);
 
                 }
             }
@@ -156,12 +156,41 @@ $('document').ready(function () {
     });
 
     function markerClick(e) {
-        var selection = document.getElementById('selection');
-        selection.innerHTML = e.target.feature.properties.CODE;
+        if (Depart)
+        {
+            var selection = document.getElementById('Depart');
+            selection.innerHTML = e.target.feature.properties.CODE;
+            PointA = e;
+        }
+        else
+        {
+            var selection = document.getElementById('Destination');
+            selection.innerHTML = e.target.feature.properties.CODE;
+            PointB = e;
+        }
+
 
     }
     map.on('locationfound', onLocation);
 });
+
+function checkDepart() {
+    var checkbox = document.getElementById('myonoffswitch');
+    if (checkbox.checked) {
+
+        if (PointA.target.feature.properties.Type_arret == "Point de rabattement")
+        {
+               
+        }
+
+
+        Depart = false;
+    }
+    else {
+
+        Depart = true;
+    }
+}
 
 
 function position() {
