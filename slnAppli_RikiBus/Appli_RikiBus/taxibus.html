@@ -1,7 +1,8 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <title></title>
+    <link rel="icon" href="ressources/img/Style/favoicon.ico" />
+    <title>Taxibus</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Compiled JQuery -->
@@ -45,14 +46,14 @@
     <!-- First Container -->
     <div class="container-fluid bg-1 text-center">
         <h1 class="margin">Taxibus</h1>
-        <button onclick="position()">Ma position</button>
-   
-        
+        <p style="text-align:center">  </br>Pour connaître l’arrêt situé le plus près de vos besoins, vous devez consulter la carte de votre zone ou de votre ligne et l’horaire qui lui est assorti.</p>
+        </br>
+        <button class=" btn btn-default btn-lg text-center " onclick="position()"><span class="glyphicon glyphicon-map-marker"></span> Ma position</button> </br></br>
         <div id="map" style="height:500px;" class="col-sm-12 text-center"> </div>
-   
+
         <h3>Arrêts de Taxibus</h3>
     </div>
- 
+
     <!-- Second Container -->
     <div style="color:black;" class="col-sm-12 container-fluid bg-2 text-center">
         <h2 class="margin">Faites votre trajet</h2>
@@ -62,12 +63,12 @@
             <div id="Depart"></div>
 
         </div>
-        
-    
+
+
         <div style="color:black;" class="col-sm-4 container-fluid bg-2 text-center">
             <div class="onoffswitch">
                 <input onclick="checkDepart()" type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" unchecked>
-                <label class="onoffswitch-label"  for="myonoffswitch">
+                <label class="onoffswitch-label" for="myonoffswitch">
                     <span class="onoffswitch-inner"></span>
                     <span class="onoffswitch-switch"></span>
                 </label>
@@ -80,29 +81,73 @@
     </div>
 
 
-        <!-- Third Container (Grid) -->
-        <div class="container-fluid bg-3 text-center">
-            <h3 class="margin">Where To Find Me?</h3><br>
-            <div class="row">
-                <div class="col-sm-4">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    <img src="birds1.jpg" class="img-responsive margin" style="width:100%" alt="Image">
-                </div>
-                <div class="col-sm-4">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    <img src="birds2.jpg" class="img-responsive margin" style="width:100%" alt="Image">
-                </div>
-                <div class="col-sm-4">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    <img src="birds3.jpg" class="img-responsive margin" style="width:100%" alt="Image">
-                </div>
+    <!-- Third Container (Grid) -->
+    <div class="container-fluid bg-3 text-left">
+        <div class="row">
+            <div class="col-sm-6">
+                <center><img src="../../../ressources/img/Style/ligneGreen.png" class="img-responsive margin" style="width:100%" alt="Image"></center>
+                <div class="titreModeEmploiGreen">Tarifs</div>
+                </br>
+                <table style="width:100%">
+                    <tr>
+                        <th>Type de trajet</th>
+                        <th>Prix régulier</th>
+                        <th>Prix réduit *</th>
+                    </tr>
+                    <tr>
+                        <td>Aller simple</td>
+                        <td>3.95 $</td>
+                        <td>2.65 $</td>
+                    </tr>
+                    <tr>
+                        <td>Laissez-passer mensuel</td>
+                        <td>102 $</td>
+                        <td>51 $</td>
+                    </tr>
+                    <tr>
+                        <td>Lot de dix billets</td>
+                        <td>32.85 $</td>
+                        <td>23.85 $</td>
+                    </tr>
+                </table>
+                </br>
+            </div>
+            <div class="col-sm-6">
+                <center><img src="../../../ressources/img/Style/ligneGreen.png" class="img-responsive margin" style="width:100%" alt="Image"></center>
+                <div class="titreModeEmploiGreen">Pour bénificier du tarif réduit, vous devez remplir les conditions suivantes</div>
+                </br>
+                <ul>
+                    <li>Être agé de 65 ans et plus.</li>
+                    <li>Présenter la carte de validation du statut étudiant émise par la Société des transports de Rimouski</li>
+                </ul>
+            </div>
+            <div class="col-sm-12 text-center">
+                <a href="PagesMenu/PageTaxiBus/Fonctionnement/ModeEmploi.html" class="btn btn-default btn-lg text-center"><span class="glyphicon glyphicon-info-sign"></span> Plus de renseignements sur Taxibus</a></a>
             </div>
         </div>
+    </div>
 
-        <!-- Footer -->
-        <footer class="container-fluid bg-4 text-center">
-            <p>Bootstrap Theme Made By <a href="https://www.w3schools.com">www.w3schools.com</a></p>
-        </footer>
+
+    <div class="container-fluid bg-2 text-center">
+        <h3 class="margin">Plus d'information</h3>
+        <p>
+            <center><b>Vous avez des questions sur votre service de transport en commun ? </b></center>
+            </br>
+        <p>
+            Que vous utilisiez CitéBus, TaxiBus ou les deux, nos téléphonistes vous conseillent
+            sur le trajet qui vous convient le mieux à vos besoins.
+        </p>
+        </p>
+        <a href="tel:4187235555" class="btn btn-default btn-lg">
+            <span class="glyphicon glyphicon-earphone"> </span> 418 723-5555
+        </a>
+        </br>
+        </br>
+    </div>
+    <!-- Footer -->
+    <footer class="container-fluid bg-4 text-center">
+        <p>Fait par l'équipe de <b>Euzautes</b> au Hack Qc 2017 </p>
+    </footer>
 
 </body>
 </html>
