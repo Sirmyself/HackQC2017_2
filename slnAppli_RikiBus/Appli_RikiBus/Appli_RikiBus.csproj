@@ -90,6 +90,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="icon.js" />
+    <Content Include="ressources\img\Pointers\marker-grey.png" />
     <Content Include="ressources\img\Pointers\star.png" />
     <Content Include="ressources\img\Style\favoicon.ico" />
     <Content Include="ressources\img\Style\ligneGray.png" />

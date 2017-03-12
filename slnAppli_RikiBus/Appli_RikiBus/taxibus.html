@@ -43,19 +43,22 @@
             </div>
         </div>
     </nav>
-    ()
+
     <!-- First Container -->
    <div class="container-fluid bg-1 text-center">
         <h1 class="margin">Taxibus</h1>
+       <p>Le service Taxibus est offert sur le territoire dans différentes zones et lignes identifiées par des couleurs. Pour connaître l’arrêt situé le plus près de vos besoins, vous devez consulter la carte de votre zone ou de votre ligne et l’horaire qui lui est assorti.</p>
         <div style="text-align : right; margin-bottom : 1em;">
             <h3>Filtre de points d'arrêt</h3>
             <label for="nudRayon">Rayon du filtre (en Km) : </label>
-            <input type="number" id="nudRayon" min="0.5" step="0.1" value="0.5" max="3" style="color : black !important;" /><br />
-            <button class=" btn btn-default btn-lg text-center " onclick="position()"><span class="glyphicon glyphicon-map-marker"></span> Ma position</button> </br></br>
-            <button class=" btn btn-default btn-lg text-center " onclick="fitrerRadius()"><span class="glyphicon glyphicon-record"></span> Filter les arrêts</button>
+            <input type="number" onchange="setFiltreRadius()" id="nudRayon" min="0.5" step="0.1" value="0.5" max="3" style="color : black !important;" /><br />
+            <button onclick="position()" style="color : black;">Trouver ma position</button>
         </div>
         <div id="map" style="height:500px;" class="col-sm-12 text-center"> </div>
    
+        <div style="text-align : right; margin-bottom : 1em;">
+            <button onclick="reinitPts()" style="color : black;">Réinitialiser les points</button>
+        </div>
         
    
         <h3>Arrêts de Taxibus</h3>
@@ -63,7 +66,7 @@
 
     <!-- Second Container -->
     <div style="color:white;" class="col-sm-12 container-fluid bg-2 text-center">
-        <h2 class="margin">Faites votre trajet</h2>
+        <h2 class="margin">Choisir votre trajet</h2>
         <div style="color:black;" class="col-sm-4 container-fluid bg-2 text-center">
             <h3>Départ</h3>
 
@@ -90,7 +93,7 @@
      
         <div class="col-sm-12">
             <center><img src="../../../ressources/img/Style/ligneGreen.png" class="img-responsive margin" style="width:100%;" alt="Image"></center>
-        </div>
+    </div>
         <div id="infoArret" class="container-fluid bg-2 text-center"></div>
     </div>
         

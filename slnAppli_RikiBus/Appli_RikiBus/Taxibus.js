@@ -8,6 +8,13 @@ var geojsonRabattement;
 var Depart = true;
 var PointA = null;
 var PointB = null;
+var filtre = false;
+
+var greyIcon;
+var greenIcon;
+var blueIcon;
+var redIcon;
+var yellowIcon;
 
 $('document').ready(function () {
     // initialization de la map
@@ -47,10 +54,11 @@ $('document').ready(function () {
             });
         };
 
-        var greenIcon = nouvIcon("green");
-        var blueIcon = nouvIcon("blue");
-        var redIcon = nouvIcon("red");
-        var yellowIcon = nouvIcon("yellow");
+        greyIcon = nouvIcon("grey");
+        greenIcon = nouvIcon("green");
+        blueIcon = nouvIcon("blue");
+        redIcon = nouvIcon("red");
+        yellowIcon = nouvIcon("yellow");
         //variable qui contient un point dans la map
         var selection;
 
@@ -94,78 +102,31 @@ $('document').ready(function () {
         geojsonRabattement.addTo(map);
 
 
-        //       geojsonRouge.addData(filtreZone(/rouge/, array));
-        //geojsonVert.addData(filtreZone(/verte/, array));
-        //geojsonBleue.addData(filtreZone(/bleue/, array));
-        //geojsonRabattement.addData(filtreZone(/rabattement/, array));
-
-
-
         function filtreZone(regex, data) {
-            /*Filtrage des données geojson avec un regex (si le type de point contient le regex, il sera dans la liste de données)*/
-
-
-            //var sel;
-            //switch (regex.source) {
-            //    case 'rabattement':
-            //        sel = document.getElementById('rabattement');
-            //        break;
-            //    case 'verte':
-            //        sel = document.getElementById('verte');
-            //        break;
-
-            //    case 'rouge':
-            //        sel = document.getElementById('rouge');
-            //        break;
-
-            //    case 'bleue':
-            //        sel = document.getElementById('bleue');
-            //        break;
-
-            //}
-
             var array = [];
             for (i = 2; i < data.length; ++i) {
                 var str = "";
-
-
                 str = data[i].properties.Type_arret;
                 if (regex.test(str)) {
                     array[array.length] = data[i];
-                    //var opt = document.createElement('option');
-                    //opt.innerHTML = data[i].properties.CODE;
-                    //opt.value = data[i];
-                    //sel.appendChild(opt);
 
                 }
             }
             return array;
         }
-
         //ajout des layers dans le sélecteur
-        overlayMaps = {
-            "1 - Zone Verte": geojsonVert,
-            "2 - Zone Bleue": geojsonBleue,
-            "3 - Ligne rouge": geojsonRouge,
-            "4 - Point de rabattement": geojsonRabattement
-        };
-
-
-
+        overlayMap(null);
         L.control.layers(null, overlayMaps).addTo(map);
-
     });
 
     //fonction relier à l'événement onCLick
     function markerClick(e) {
-        if (Depart)
-        {
+        if (Depart) {
             var selection = document.getElementById('Depart');
-            selection.innerHTML = e.target.feature.properties.CODE +" "+ e.target.feature.properties.Type_arret;
+            selection.innerHTML = e.target.feature.properties.CODE + " " + e.target.feature.properties.Type_arret;
             PointA = e;
         }
-        else
-        {
+        else {
             var selection = document.getElementById('Destination');
             selection.innerHTML = e.target.feature.properties.CODE + " " + e.target.feature.properties.Type_arret;
             PointB = e;
@@ -174,76 +135,77 @@ $('document').ready(function () {
         var activer = PointA != null && PointB != null;
         $('#btnReservation').toggle(activer);
 
-        if (activer)
+        if (activer) {
             determinerheures(PointA, PointB);
+        }
 
 
     }
-
     map.on('locationfound', onLocation);
 });
 
 
-//Fonction de sélection des zones affichers en fonction du point de départ sélectionner
+//Fonction de sélection des zones affichées en fonction du point de départ sélectionné
 function checkDepart() {
     var checkbox = document.getElementById('myonoffswitch');
-    if (checkbox.checked) {
+    Depart = !checkbox.checked;
+    if (!Depart) {
         if (PointA != null) {
-            switch (PointA.target.feature.properties.Type_arret) {
-                case "Point de rabattement":
-                    uncheck("4 - Point de rabattement");
-                    break;
-                case "Taxibus - Zone verte":
-                    uncheck("2 - Zone Bleue");
+            var type = PointA.target.feature.properties.Type_arret;
+            if (type != "Point de rabattement") {
+                if (type != "Taxibus - Zone verte") {
+                    uncheck("1 - Zone verte");
+                }
+                if (type != 'Taxibus - Zone bleue') {
+                    uncheck("2 - Zone bleue");
+                }
+                if (type != "Taxibus - Ligne rouge") {
                     uncheck("3 - Ligne rouge");
-                    break;
-
-                case "Taxibus - Ligne rouge":
-                    uncheck("2 - Zone Bleue");
-                    uncheck("1 - Zone Verte");
-                    break;
-
-                case 'Taxibus - Zone bleue':
-                    uncheck("1 - Zone Verte")
-                    uncheck("3 - Ligne rouge")
-                    break;
-
+                }
             }
-     
+            else {
+                uncheck("4 - Point de rabattement");
+            }
         }
-        Depart = false;
     }
     else {
-
-        Depart = true;
-        
-
+        check("1 - Zone verte");
+        check("2 - Zone bleue");
+        check("3 - Ligne rouge");
+        check("4 - Point de rabattement");
     }
-    
 }
 
 
-function uncheck(chaine)
-{
-    $("span:contains("+chaine+")").parent().find(">:first-child").trigger("click");
+function uncheck(chaine) {
+    if ($("span:contains(" + chaine + ")").parent().find(">:first-child").first()[0].checked) {
+        $("span:contains(" + chaine + ")").parent().find(">:first-child").trigger("click");
+    }
+}
+
+function check(chaine) {
+    if (!($("span:contains(" + chaine + ")").parent().find(">:first-child").first()[0].checked)) {
+        $("span:contains(" + chaine + ")").parent().find(">:first-child").trigger("click");
+    }
 }
 
 //fonction de géolocalisation présentement hardcode À luceville pour des raisons de convivialité
 function position() {
-    //map.locate({ setView: true, maxZoom: 16, enableHighAccuracy: true });/*
-    map.setView([48.5406343914947, -68.4289054901558], 12);//*/
+    //map.locate({ setView: true, maxZoom: 17, enableHighAccuracy: true });/*
+    var coord = [48.5206343914947, -68.4578054901558];
+    map.setView(coord, 17);
+    onLocation({ latlng: coord });//*/
 }
 
 function onLocation(e) {
     var acc = e.accuracy / 2;
-    L.marker(e.latlng, acc).addTo(map).bindPopup("Votre position").icon.addClass("iconHidden");
+
+    var marker = L.marker(e.latlng, { icon: greyIcon }).addTo(map);
+    marker.bindPopup("Votre position actuelle");
 }
 
-//fonction d'ajout d'un maker circle d'un rayon relatif killomètre ayant la zone cliqué comme origine. Applique un filtre pour visualisé uniquement
-//les points contenu dans la zone
-function filtrerRadius(e) {
-
-    var cercle = L.circle(e.latlng, 1000);
+function filtrerRadius(e, radius) {
+    var cercleFiltre = L.circle(e.latlng, radius);
     var collection = new L.GeoJSON();
     var temp = [];
     map.eachLayer(
@@ -253,7 +215,7 @@ function filtrerRadius(e) {
                 map.removeLayer(layer);
             }
             if (layer instanceof L.Marker) {
-                if (cercle.getBounds().contains(layer._latlng)) {
+                if (cercleFiltre.getBounds().contains(layer._latlng)) {
                     temp.push(layer);
                 }
             }
@@ -263,31 +225,49 @@ function filtrerRadius(e) {
     overlayMap(collection);
 
     collection.addTo(map);
-    cercle.addTo(map);
+    cercleFiltre.addTo(map);
 }
 
-function overlayMap(overlayFiltre)
-{
-    $(".leaflet-top.leaflet-right > *").remove();
+function enleverCercle() {
+    map.eachLayer(function (layer) {
+        if (layer instanceof L.Circle) {
+            map.removeLayer(layer);
+        }
+    });
+}
+
+function reinitPts() {
+    enleverCercle();
+
+    check("Zone verte");
+    check("Zone bleue");
+    check("Ligne rouge");
+    check("Point de rabattement");
+    if (filtre) {
+        uncheck("Filtre");
+        filtre = false;
+    }
+}
+
+function overlayMap(overlayFiltre) {
+    $(".leaflet-top.leaflet-right > *").remove()
     if (overlayFiltre == null) {
         overlayMaps = {
-            "1 - Zone Verte": geojsonVert,
-            "2 - Zone Bleue": geojsonBleue,
+            "1 - Zone verte": geojsonVert,
+            "2 - Zone bleue": geojsonBleue,
             "3 - Ligne rouge": geojsonRouge,
             "4 - Point de rabattement": geojsonRabattement
         };
     }
     else {
         overlayMaps = {
-            "1 - Zone Verte": geojsonVert,
-            "2 - Zone Bleue": geojsonBleue,
+            "1 - Zone verte": geojsonVert,
+            "2 - Zone bleue": geojsonBleue,
             "3 - Ligne rouge": geojsonRouge,
             "4 - Point de rabattement": geojsonRabattement,
             "Filtre": overlayFiltre
         };
     }
-
-
 
     L.control.layers(null, overlayMaps).addTo(map);
 }
@@ -295,27 +275,20 @@ function overlayMap(overlayFiltre)
 //fonction onclick de la map
 function onMapClick(e) {
     filtrerRadius(e);
-   
-    
 }
-
-
 
 function determinerheures(a, b) {
     var heures;
-    if (a.target.feature.properties.Type_arret == b.target.feature.properties.Type_arret)
-    {
+    if (a.target.feature.properties.Type_arret == b.target.feature.properties.Type_arret) {
         heures = a.target.feature.properties.SEM_SEUL.split(", ");
     }
-    else if (a.target.feature.properties.Type_arret == "Point de rabattement")
-    {
+    else if (a.target.feature.properties.Type_arret == "Point de rabattement") {
         heures = a.target.feature.properties.SEM_VERS_TAXI.split(", ");
     }
-    else
-    {
+    else {
         heures = a.target.feature.properties.SEM_VERS_BUS.split(", ");
     }
-   
+
     var AM = new Array();
     var PM = new Array();
     for (i = 0; i < heures.length; i++) {
@@ -351,6 +324,19 @@ function determinerheures(a, b) {
     contenuHeures += '</div>';
     var contenu = '<h1>Arrêt ' + a.target.feature.properties.CODE + ' ( ' + a.target.feature.properties.Type_arret + ')</h1>' + contenuHeures;
     $('#infoArret').html(contenu);
+}
 
+function onMapClick(e) {
+    filtrerRadius(e, document.getElementById("nudRayon").value * 1000);
+}
 
+function setFiltreRadius() {
+    map.eachLayer(function (layer) {
+        // Check if layer is a marker
+        if (layer instanceof L.Circle) {
+            var coord = layer._latlng;
+            var preferredRadius = document.getElementById("nudRayon").value * 1000;
+            filtrerRadius({ latlng: coord }, preferredRadius);
+        }
+    });
 }
