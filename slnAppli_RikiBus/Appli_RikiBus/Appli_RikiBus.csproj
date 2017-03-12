@@ -73,6 +73,7 @@
     <Content Include="PagesMenu\PageCiteBus\Simulation.html" />
     <Content Include="PagesMenu\PageTaxiBus\Fonctionnement\ModeEmploi.html" />
     <Content Include="pointVente.js" />
+    <Content Include="Reservation.html" />
     <Content Include="ressources\fichiers_JSON\arretcitebus.json" />
     <Content Include="ressources\fichiers_JSON\circuitcitebus.json" />
     <Content Include="ressources\fichiers_JSON\Arrets.json" />

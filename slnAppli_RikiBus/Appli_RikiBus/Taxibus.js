@@ -6,13 +6,13 @@ var geojsonBleue;
 var geojsonRouge;
 var geojsonRabattement;
 var Depart = true;
-var PointA;
-var PointB;
+var PointA = null;
+var PointB = null;
 
 $('document').ready(function () {
     // initialization de la map
     map = L.map('map').setView([48.4506343914947, -68.5289754901558], 12);
-
+    $('#btnReservation').hide();
 
     map.on('click', onMapClick);
 
@@ -159,14 +159,15 @@ $('document').ready(function () {
         if (Depart)
         {
             var selection = document.getElementById('Depart');
-            selection.innerHTML = e.target.feature.properties.CODE;
+            selection.innerHTML = e.target.feature.properties.CODE +" "+ e.target.feature.properties.Type_arret;
             PointA = e;
         }
         else
         {
             var selection = document.getElementById('Destination');
-            selection.innerHTML = e.target.feature.properties.CODE;
+            selection.innerHTML = e.target.feature.properties.CODE + " " + e.target.feature.properties.Type_arret;
             PointB = e;
+            $('#btnReservation').toggle(PointA != null && PointB != null);
         }
 
 
@@ -178,19 +179,42 @@ $('document').ready(function () {
 function checkDepart() {
     var checkbox = document.getElementById('myonoffswitch');
     if (checkbox.checked) {
+        if (PointA != null) {
+            switch (PointA.target.feature.properties.Type_arret) {
+                case "Point de rabattement":
+                    uncheck("4 - Point de rabattement");
+                    break;
+                case "Taxibus - Zone verte":
+                    uncheck("2 - Zone Bleue");
+                    uncheck("3 - Ligne rouge");
+                    break;
 
-        if (PointA.target.feature.properties.Type_arret == "Point de rabattement")
-        {
-               
+                case "Taxibus - Ligne rouge":
+                    uncheck("2 - Zone Bleue");
+                    uncheck("1 - Zone Verte");
+                    break;
+
+                case 'Taxibus - Zone bleue':
+                    uncheck("1 - Zone Verte")
+                    uncheck("3 - Ligne rouge")
+                    break;
+
+            }
+     
         }
-
-
         Depart = false;
     }
     else {
 
         Depart = true;
+        
+
     }
+    
+}
+function uncheck(chaine)
+{
+    $("span:contains("+chaine+")").parent().find(">:first-child").trigger("click");
 }
 
 
