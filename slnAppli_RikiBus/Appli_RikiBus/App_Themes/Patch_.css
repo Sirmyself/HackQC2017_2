@@ -9,3 +9,6 @@
 .iconHidden{
     display : none;
 }
+button{
+    color : black !important;
+}

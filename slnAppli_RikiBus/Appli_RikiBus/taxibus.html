@@ -40,11 +40,15 @@
             </div>
         </div>
     </nav>
-    ()
+
     <!-- First Container -->
-   <div class="container-fluid bg-1 text-center">
-       <button onclick="position()">Ma position</button>
-       <button onclick="fitrerRadius()">Ma position2</button>
+    <div class="container-fluid bg-1 text-center">
+        <div >
+            <label for="nudRayon">Rayon du filtre (en Km) : </label>
+            <input type="number" id="nudRayon" min="0.5" step="0.1" value="0.5" max="3" style="color : black !important;" /><br />
+
+            <button onclick="fitrerRadius()" style="color : black;">Filter les arrêts</button>
+        </div>
         <h3 class="margin">Taxibus</h3>
         <div id="map" style="width: 800px; height:600px; text-align: center; margin: auto;"> </div>
         <h3>Arrêts de Taxibus</h3>
@@ -52,7 +56,7 @@
 
     <!-- Second Container -->
     <div style="color:black;" class="container-fluid bg-2 text-center">
-        <h3 class="margin">What Am I?</h3>
+        <h3 class="margin"></h3>
 
 
         <label for="verte">Zone verte:</label>
@@ -67,22 +71,22 @@
         <div id="selection"></div>
 
     </div>
-        
+
     <!-- Third Container (Grid) -->
     <div class="container-fluid bg-3 text-center">
         <h3 class="margin">Where To Find Me?</h3><br>
         <div class="row">
             <div class="col-sm-4">
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                <img src="birds1.jpg" class="img-responsive margin" style="width:100%" alt="Image">
+                <!--<img src="birds1.jpg" class="img-responsive margin" style="width:100%" alt="Image">-->
             </div>
             <div class="col-sm-4">
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                <img src="birds2.jpg" class="img-responsive margin" style="width:100%" alt="Image">
+                <!--<img src="birds2.jpg" class="img-responsive margin" style="width:100%" alt="Image">-->
             </div>
             <div class="col-sm-4">
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                <img src="birds3.jpg" class="img-responsive margin" style="width:100%" alt="Image">
+                <!--<img src="birds3.jpg" class="img-responsive margin" style="width:100%" alt="Image">-->
             </div>
         </div>
     </div>
