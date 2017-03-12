@@ -6,7 +6,15 @@
 	<meta charset="utf-8" />
 </head>
 <body>
-    <form action="" methode="post">
+    <form action="Confirmation.html" methode="post">
+        Nom: <br />
+        <input type="text" name="nom" required /> <br />
+        Prenom: <br />
+        <input type="text" name="prenom" required /> <br />
+        Numéro de téléphone: <br />
+        <input type="text" name="numTel" pattern="(?:\(\d{3}\)|\d{3})[- ]?\d{3}[- ]?\d{4}" required /> <br />
+        Code Taxi: <br />
+        <input type="text" name="codeTaxi" pattern="[0-9]{5}" required /> <br />
         <input type="submit" value="Confirmer réservation" />
     </form>
 </body>
