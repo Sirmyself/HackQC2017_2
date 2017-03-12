@@ -169,8 +169,13 @@ $('document').ready(function () {
             var selection = document.getElementById('Destination');
             selection.innerHTML = e.target.feature.properties.CODE + " " + e.target.feature.properties.Type_arret;
             PointB = e;
-            $('#btnReservation').toggle(PointA != null && PointB != null);
         }
+
+        var activer = PointA != null && PointB != null;
+        $('#btnReservation').toggle(activer);
+
+        if (activer)
+            determinerheures(PointA, PointB);
 
 
     }
@@ -290,5 +295,62 @@ function overlayMap(overlayFiltre)
 //fonction onclick de la map
 function onMapClick(e) {
     filtrerRadius(e);
+   
     
+}
+
+
+
+function determinerheures(a, b) {
+    var heures;
+    if (a.target.feature.properties.Type_arret == b.target.feature.properties.Type_arret)
+    {
+        heures = a.target.feature.properties.SEM_SEUL.split(", ");
+    }
+    else if (a.target.feature.properties.Type_arret == "Point de rabattement")
+    {
+        heures = a.target.feature.properties.SEM_VERS_TAXI.split(", ");
+    }
+    else
+    {
+        heures = a.target.feature.properties.SEM_VERS_BUS.split(", ");
+    }
+   
+    var AM = new Array();
+    var PM = new Array();
+    for (i = 0; i < heures.length; i++) {
+        if (parseInt(heures[i]) < parseInt("12:00")) {
+            AM[AM.length] = heures[i];
+        }
+        else {
+            PM[PM.length] = heures[i];
+        }
+    }
+
+    var contenuHeures = '<div class="text-center">';
+    contenuHeures += '<table style="width:100%" > <tr><th style="text-align: center;"> Avant-midi </th> <th style="text-align: center;"> Après-midi </th> </tr>';
+    var x = 0;
+    for (x = 0; x < heures.length; x++) {
+        contenuHeures += '<tr>';
+        if (x >= AM.length) {
+            contenuHeures += '<td></td>';
+        }
+        else {
+            contenuHeures += '<td>' + AM[x] + '</td>';
+        }
+        if (x >= PM.length) {
+            contenuHeures += '<td></td>';
+        }
+        else {
+            contenuHeures += '<td>' + PM[x] + '</td>';
+        }
+        contenuHeures += '</tr>';
+    }
+
+    contenuHeures += '</table>';
+    contenuHeures += '</div>';
+    var contenu = '<h1>Arrêt ' + a.target.feature.properties.CODE + ' ( ' + a.target.feature.properties.Type_arret + ')</h1>' + contenuHeures;
+    $('#infoArret').html(contenu);
+
+
 }
