@@ -239,7 +239,7 @@ function onLocation(e) {
     L.marker(e.latlng, acc).addTo(map).bindPopup("Votre position").icon.addClass("iconHidden");
 }
 
-//fonction d'ajout d'un maker circle d'un rayond de 1 killomètre ayant la zone cliqué comme origine. Applique un filtre pour visualisé uniquement
+//fonction d'ajout d'un maker circle d'un rayon relatif killomètre ayant la zone cliqué comme origine. Applique un filtre pour visualisé uniquement
 //les points contenu dans la zone
 function filtrerRadius(e) {
 
