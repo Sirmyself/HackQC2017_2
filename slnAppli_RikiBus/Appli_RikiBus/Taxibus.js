@@ -6,8 +6,8 @@ var geojsonBleue;
 var geojsonRouge;
 var geojsonRabattement;
 var Depart = true;
-var PointA;
-var PointB;
+var PointA = null;
+var PointB = null;
 
 var greyIcon;
 var greenIcon;
@@ -18,7 +18,7 @@ var yellowIcon;
 $('document').ready(function () {
     // initialization de la map
     map = L.map('map').setView([48.4506343914947, -68.5289754901558], 12);
-
+    $('#btnReservation').hide();
 
     map.on('click', onMapClick);
 
@@ -114,44 +114,90 @@ $('document').ready(function () {
             return array;
         }
 
+        //ajout des layers dans le sélecteur
+        overlayMaps = {
+            "1 - Zone Verte": geojsonVert,
+            "2 - Zone Bleue": geojsonBleue,
+            "3 - Ligne rouge": geojsonRouge,
+            "4 - Point de rabattement": geojsonRabattement
+        };
+
 
 
         L.control.layers(null, overlayMaps).addTo(map);
 
     });
 
+    //fonction relier à l'événement onCLick
     function markerClick(e) {
         if (Depart) {
             var selection = document.getElementById('Depart');
-            selection.innerHTML = e.target.feature.properties.CODE;
+            selection.innerHTML = e.target.feature.properties.CODE +" "+ e.target.feature.properties.Type_arret;
             PointA = e;
         }
         else {
             var selection = document.getElementById('Destination');
-            selection.innerHTML = e.target.feature.properties.CODE;
+            selection.innerHTML = e.target.feature.properties.CODE + " " + e.target.feature.properties.Type_arret;
             PointB = e;
         }
+
+        var activer = PointA != null && PointB != null;
+        $('#btnReservation').toggle(activer);
+
+        if (activer)
+            determinerheures(PointA, PointB);
+
+
     }
     map.on('locationfound', onLocation);
 });
 
+
+//Fonction de sélection des zones affichers en fonction du point de départ sélectionner
 function checkDepart() {
     var checkbox = document.getElementById('myonoffswitch');
     if (checkbox.checked) {
+        if (PointA != null) {
+            switch (PointA.target.feature.properties.Type_arret) {
+                case "Point de rabattement":
+                    uncheck("4 - Point de rabattement");
+                    break;
+                case "Taxibus - Zone verte":
+                    uncheck("2 - Zone Bleue");
+                    uncheck("3 - Ligne rouge");
+                    break;
 
-        if (PointA.target.feature.properties.Type_arret == "Point de rabattement") {
+                case "Taxibus - Ligne rouge":
+                    uncheck("2 - Zone Bleue");
+                    uncheck("1 - Zone Verte");
+                    break;
+               
+                case 'Taxibus - Zone bleue':
+                    uncheck("1 - Zone Verte")
+                    uncheck("3 - Ligne rouge")
+                    break;
 
         }
 
+        }
         Depart = false;
     }
     else {
 
         Depart = true;
+        
+
     }
+    
 }
 
 
+function uncheck(chaine)
+{
+    $("span:contains("+chaine+")").parent().find(">:first-child").trigger("click");
+}
+
+//fonction de géolocalisation présentement hardcode À luceville pour des raisons de convivialité
 function position() {
     //map.locate({ setView: true, maxZoom: 17, enableHighAccuracy: true });/*
     var coord = [48.5206343914947, -68.4578054901558];
@@ -227,17 +273,68 @@ function overlayMap(overlayFiltre) {
     L.control.layers(null, overlayMaps).addTo(map);
 }
 
+//fonction onclick de la map
+function onMapClick(e) {
+    filtrerRadius(e);
+}
+
+function determinerheures(a, b) {
+    var heures;
+    if (a.target.feature.properties.Type_arret == b.target.feature.properties.Type_arret) {
+        heures = a.target.feature.properties.SEM_SEUL.split(", ");
+    }
+    else if (a.target.feature.properties.Type_arret == "Point de rabattement") {
+        heures = a.target.feature.properties.SEM_VERS_TAXI.split(", ");
+    }
+    else {
+        heures = a.target.feature.properties.SEM_VERS_BUS.split(", ");
+    }
+
+    var AM = new Array();
+    var PM = new Array();
+    for (i = 0; i < heures.length; i++) {
+        if (parseInt(heures[i]) < parseInt("12:00")) {
+            AM[AM.length] = heures[i];
+        }
+        else {
+            PM[PM.length] = heures[i];
+        }
+    }
+
+    var contenuHeures = '<div class="text-center">';
+    contenuHeures += '<table style="width:100%" > <tr><th style="text-align: center;"> Avant-midi </th> <th style="text-align: center;"> Après-midi </th> </tr>';
+    var x = 0;
+    for (x = 0; x < heures.length; x++) {
+        contenuHeures += '<tr>';
+        if (x >= AM.length) {
+            contenuHeures += '<td></td>';
+        }
+        else {
+            contenuHeures += '<td>' + AM[x] + '</td>';
+        }
+        if (x >= PM.length) {
+            contenuHeures += '<td></td>';
+        }
+        else {
+            contenuHeures += '<td>' + PM[x] + '</td>';
+        }
+        contenuHeures += '</tr>';
+    }
+
+    contenuHeures += '</table>';
+    contenuHeures += '</div>';
+    var contenu = '<h1>Arrêt ' + a.target.feature.properties.CODE + ' ( ' + a.target.feature.properties.Type_arret + ')</h1>' + contenuHeures;
+    $('#infoArret').html(contenu);
+}
+
 function onMapClick(e) {
     filtrerRadius(e, document.getElementById("nudRayon").value * 1000);
 }
 
-function setFiltreRadius()
-{
-    map.eachLayer(function (layer)
-    {
+function setFiltreRadius() {
+    map.eachLayer(function (layer) {
         // Check if layer is a marker
-        if (layer instanceof L.Circle)
-        {
+        if (layer instanceof L.Circle) {
             var coord = layer._latlng;
             var preferredRadius = document.getElementById("nudRayon").value * 1000;
             filtrerRadius({ latlng: coord }, preferredRadius);

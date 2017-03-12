@@ -67,13 +67,13 @@
     <Content Include="App_Themes\Patch_.css" />
     <Content Include="App_Themes\style.css" />
     <Content Include="CartePointVente.html" />
-    <Content Include="PagesMenu\PageCiteBus\Fonctionnement\Carte.html" />
     <Content Include="PagesMenu\PageCiteBus\Fonctionnement\ModeEmploi.html" />
-    <Content Include="PagesMenu\PageCiteBus\Fonctionnement\Tarifs.html" />
     <Content Include="PagesMenu\PageCiteBus\PointsVentes.html" />
     <Content Include="PagesMenu\PageCiteBus\Reglements.html" />
     <Content Include="PagesMenu\PageCiteBus\Simulation.html" />
+    <Content Include="PagesMenu\PageTaxiBus\Fonctionnement\ModeEmploi.html" />
     <Content Include="pointVente.js" />
+    <Content Include="Reservation.html" />
     <Content Include="ressources\fichiers_JSON\arretcitebus.json" />
     <Content Include="ressources\fichiers_JSON\circuitcitebus.json" />
     <Content Include="ressources\fichiers_JSON\Arrets.json" />
@@ -91,6 +91,8 @@
     <Content Include="icon.js" />
     <Content Include="ressources\img\Pointers\marker-grey.png" />
     <Content Include="ressources\img\Pointers\star.png" />
+    <Content Include="ressources\img\Style\favoicon.ico" />
+    <Content Include="ressources\img\Style\ligneGray.png" />
     <Content Include="ressources\img\Style\ligneGreen.PNG" />
     <Content Include="ressources\img\Pointers\marker-blue.png" />
     <Content Include="ressources\img\Pointers\marker-green.png" />
@@ -113,7 +115,9 @@
     <Content Include="index.html" />
     <Content Include="informations.html" />
     <Content Include="taxibus.html" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -125,7 +129,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Themes\Theme1\" />
-    <Folder Include="PagesMenu\PageTaxiBus\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
