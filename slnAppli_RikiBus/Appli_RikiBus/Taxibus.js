@@ -142,6 +142,7 @@ $('document').ready(function () {
             return array;
         }
 
+        //ajout des layers dans le sélecteur
         overlayMaps = {
             "1 - Zone Verte": geojsonVert,
             "2 - Zone Bleue": geojsonBleue,
@@ -155,6 +156,7 @@ $('document').ready(function () {
 
     });
 
+    //fonction relier à l'événement onCLick
     function markerClick(e) {
         if (Depart)
         {
@@ -181,6 +183,8 @@ $('document').ready(function () {
     map.on('locationfound', onLocation);
 });
 
+
+//Fonction de sélection des zones affichers en fonction du point de départ sélectionner
 function checkDepart() {
     var checkbox = document.getElementById('myonoffswitch');
     if (checkbox.checked) {
@@ -217,12 +221,14 @@ function checkDepart() {
     }
     
 }
+
+
 function uncheck(chaine)
 {
     $("span:contains("+chaine+")").parent().find(">:first-child").trigger("click");
 }
 
-
+//fonction de géolocalisation présentement hardcode À luceville pour des raisons de convivialité
 function position() {
     //map.locate({ setView: true, maxZoom: 16, enableHighAccuracy: true });/*
     map.setView([48.5406343914947, -68.4289054901558], 12);//*/
@@ -233,7 +239,8 @@ function onLocation(e) {
     L.marker(e.latlng, acc).addTo(map).bindPopup("Votre position").icon.addClass("iconHidden");
 }
 
-
+//fonction d'ajout d'un maker circle d'un rayon relatif killomètre ayant la zone cliqué comme origine. Applique un filtre pour visualisé uniquement
+//les points contenu dans la zone
 function filtrerRadius(e) {
 
     var cercle = L.circle(e.latlng, 1000);
@@ -285,6 +292,7 @@ function overlayMap(overlayFiltre)
     L.control.layers(null, overlayMaps).addTo(map);
 }
 
+//fonction onclick de la map
 function onMapClick(e) {
     filtrerRadius(e);
    
