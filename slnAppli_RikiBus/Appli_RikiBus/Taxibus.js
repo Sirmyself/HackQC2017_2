@@ -93,55 +93,18 @@ $('document').ready(function () {
         geojsonRouge.addTo(map);
         geojsonRabattement.addTo(map);
 
-
-        //       geojsonRouge.addData(filtreZone(/rouge/, array));
-        //geojsonVert.addData(filtreZone(/verte/, array));
-        //geojsonBleue.addData(filtreZone(/bleue/, array));
-        //geojsonRabattement.addData(filtreZone(/rabattement/, array));
-
-
-
         function filtreZone(regex, data) {
             /*Filtrage des données geojson avec un regex (si le type de point contient le regex, il sera dans la liste de données)*/
-
-
-            //var sel;
-            //switch (regex.source) {
-            //    case 'rabattement':
-            //        sel = document.getElementById('rabattement');
-            //        break;
-            //    case 'verte':
-            //        sel = document.getElementById('verte');
-            //        break;
-
-            //    case 'rouge':
-            //        sel = document.getElementById('rouge');
-            //        break;
-
-            //    case 'bleue':
-            //        sel = document.getElementById('bleue');
-            //        break;
-
-            //}
-
             var array = [];
             for (i = 2; i < data.length; ++i) {
                 var str = "";
-
-
                 str = data[i].properties.Type_arret;
                 if (regex.test(str)) {
                     array[array.length] = data[i];
-                    //var opt = document.createElement('option');
-                    //opt.innerHTML = data[i].properties.CODE;
-                    //opt.value = data[i];
-                    //sel.appendChild(opt);
-
                 }
             }
             return array;
         }
-
         //ajout des layers dans le sélecteur
         overlayMaps = {
             "1 - Zone Verte": geojsonVert,
@@ -149,40 +112,30 @@ $('document').ready(function () {
             "3 - Ligne rouge": geojsonRouge,
             "4 - Point de rabattement": geojsonRabattement
         };
-
-
-
         L.control.layers(null, overlayMaps).addTo(map);
-
     });
 
     //fonction relier à l'événement onCLick
     function markerClick(e) {
-        if (Depart)
-        {
+        if (Depart) {
             var selection = document.getElementById('Depart');
-            selection.innerHTML = e.target.feature.properties.CODE +" "+ e.target.feature.properties.Type_arret;
+            selection.innerHTML = e.target.feature.properties.CODE + " " + e.target.feature.properties.Type_arret;
             PointA = e;
         }
-        else
-        {
+        else {
             var selection = document.getElementById('Destination');
             selection.innerHTML = e.target.feature.properties.CODE + " " + e.target.feature.properties.Type_arret;
             PointB = e;
         }
-
         var activer = PointA != null && PointB != null;
         $('#btnReservation').toggle(activer);
 
-        if (activer)
+        if (activer) {
             determinerheures(PointA, PointB);
-
-
+        }
     }
-
     map.on('locationfound', onLocation);
 });
-
 
 //Fonction de sélection des zones affichers en fonction du point de départ sélectionner
 function checkDepart() {
@@ -207,25 +160,18 @@ function checkDepart() {
                     uncheck("1 - Zone Verte")
                     uncheck("3 - Ligne rouge")
                     break;
-
             }
-     
         }
         Depart = false;
     }
     else {
 
         Depart = true;
-        
-
     }
-    
 }
 
-
-function uncheck(chaine)
-{
-    $("span:contains("+chaine+")").parent().find(">:first-child").trigger("click");
+function uncheck(chaine) {
+    $("span:contains(" + chaine + ")").parent().find(">:first-child").trigger("click");
 }
 
 //fonction de géolocalisation présentement hardcode À luceville pour des raisons de convivialité
@@ -266,8 +212,7 @@ function filtrerRadius(e) {
     cercle.addTo(map);
 }
 
-function overlayMap(overlayFiltre)
-{
+function overlayMap(overlayFiltre) {
     $(".leaflet-top.leaflet-right > *").remove();
     if (overlayFiltre == null) {
         overlayMaps = {
@@ -295,27 +240,24 @@ function overlayMap(overlayFiltre)
 //fonction onclick de la map
 function onMapClick(e) {
     filtrerRadius(e);
-   
-    
+
+
 }
 
 
 
 function determinerheures(a, b) {
     var heures;
-    if (a.target.feature.properties.Type_arret == b.target.feature.properties.Type_arret)
-    {
+    if (a.target.feature.properties.Type_arret == b.target.feature.properties.Type_arret) {
         heures = a.target.feature.properties.SEM_SEUL.split(", ");
     }
-    else if (a.target.feature.properties.Type_arret == "Point de rabattement")
-    {
+    else if (a.target.feature.properties.Type_arret == "Point de rabattement") {
         heures = a.target.feature.properties.SEM_VERS_TAXI.split(", ");
     }
-    else
-    {
+    else {
         heures = a.target.feature.properties.SEM_VERS_BUS.split(", ");
     }
-   
+
     var AM = new Array();
     var PM = new Array();
     for (i = 0; i < heures.length; i++) {

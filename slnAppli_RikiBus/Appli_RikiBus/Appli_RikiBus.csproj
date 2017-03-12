@@ -67,6 +67,7 @@
     <Content Include="App_Themes\Patch_.css" />
     <Content Include="App_Themes\style.css" />
     <Content Include="CartePointVente.html" />
+    <Content Include="Confirmation.html" />
     <Content Include="PagesMenu\PageCiteBus\Fonctionnement\ModeEmploi.html" />
     <Content Include="PagesMenu\PageCiteBus\PointsVentes.html" />
     <Content Include="PagesMenu\PageCiteBus\Reglements.html" />
