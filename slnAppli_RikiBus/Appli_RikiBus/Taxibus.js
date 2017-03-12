@@ -9,6 +9,12 @@ var Depart = true;
 var PointA;
 var PointB;
 
+var greyIcon;
+var greenIcon;
+var blueIcon;
+var redIcon;
+var yellowIcon;
+
 $('document').ready(function () {
     // initialization de la map
     map = L.map('map').setView([48.4506343914947, -68.5289754901558], 12);
@@ -47,10 +53,11 @@ $('document').ready(function () {
             });
         };
 
-        var greenIcon = nouvIcon("green");
-        var blueIcon = nouvIcon("blue");
-        var redIcon = nouvIcon("red");
-        var yellowIcon = nouvIcon("yellow");
+        greyIcon = nouvIcon("grey");
+        greenIcon = nouvIcon("green");
+        blueIcon = nouvIcon("blue");
+        redIcon = nouvIcon("red");
+        yellowIcon = nouvIcon("yellow");
         //variable qui contient un point dans la map
         var selection;
 
@@ -94,26 +101,13 @@ $('document').ready(function () {
         geojsonRabattement.addTo(map);
 
 
-        //       geojsonRouge.addData(filtreZone(/rouge/, array));
-        //geojsonVert.addData(filtreZone(/verte/, array));
-        //geojsonBleue.addData(filtreZone(/bleue/, array));
-        //geojsonRabattement.addData(filtreZone(/rabattement/, array));
-
-
-
         function filtreZone(regex, data) {
             var array = [];
             for (i = 2; i < data.length; ++i) {
                 var str = "";
-
-
                 str = data[i].properties.Type_arret;
                 if (regex.test(str)) {
                     array[array.length] = data[i];
-                    //var opt = document.createElement('option');
-                    //opt.innerHTML = data[i].properties.CODE;
-                    //opt.value = data[i];
-                    //sel.appendChild(opt);
 
                 }
             }
@@ -127,22 +121,17 @@ $('document').ready(function () {
     });
 
     function markerClick(e) {
-        if (Depart)
-        {
+        if (Depart) {
             var selection = document.getElementById('Depart');
             selection.innerHTML = e.target.feature.properties.CODE;
             PointA = e;
         }
-        else
-        {
+        else {
             var selection = document.getElementById('Destination');
-        selection.innerHTML = e.target.feature.properties.CODE;
+            selection.innerHTML = e.target.feature.properties.CODE;
             PointB = e;
         }
-
-
     }
-
     map.on('locationfound', onLocation);
 });
 
@@ -150,11 +139,9 @@ function checkDepart() {
     var checkbox = document.getElementById('myonoffswitch');
     if (checkbox.checked) {
 
-        if (PointA.target.feature.properties.Type_arret == "Point de rabattement")
-        {
-               
-        }
+        if (PointA.target.feature.properties.Type_arret == "Point de rabattement") {
 
+        }
 
         Depart = false;
     }
@@ -167,18 +154,20 @@ function checkDepart() {
 
 function position() {
     //map.locate({ setView: true, maxZoom: 17, enableHighAccuracy: true });/*
-    map.setView([48.5206343914947, -68.4578054901558], 17);//*/
+    var coord = [48.5206343914947, -68.4578054901558];
+    map.setView(coord, 17);
+    onLocation({ latlng: coord });//*/
 }
 
 function onLocation(e) {
     var acc = e.accuracy / 2;
-    L.marker(e.latlng, acc).addTo(map).bindPopup("Votre position").icon.addClass("iconHidden");
+
+    var marker = L.marker(e.latlng, { icon: greyIcon }).addTo(map);
+    marker.bindPopup("Votre position actuelle");
 }
 
-
-function filtrerRadius(e) {
-
-    var cercle = L.circle(e.latlng, 1000);
+function filtrerRadius(e, radius) {
+    var cercleFiltre = L.circle(e.latlng, radius);
     var collection = new L.GeoJSON();
     var temp = [];
     map.eachLayer(
@@ -188,7 +177,7 @@ function filtrerRadius(e) {
                 map.removeLayer(layer);
             }
             if (layer instanceof L.Marker) {
-                if (cercle.getBounds().contains(layer._latlng)) {
+                if (cercleFiltre.getBounds().contains(layer._latlng)) {
                     temp.push(layer);
                 }
             }
@@ -198,11 +187,24 @@ function filtrerRadius(e) {
     overlayMap(collection);
 
     collection.addTo(map);
-    cercle.addTo(map);
+    cercleFiltre.addTo(map);
 }
 
-function overlayMap(overlayFiltre)
+function reinitPts()
 {
+    var temp = [];
+    map.eachLayer(
+        function (layer) {
+            // Check if layer is a marker
+            if ((layer instanceof L.Circle)) {
+                map.removeLayer(layer);
+            }
+        });
+
+    overlayMap(null);
+}
+
+function overlayMap(overlayFiltre) {
     $(".leaflet-top.leaflet-right > *").remove();
     if (overlayFiltre == null) {
         overlayMaps = {
@@ -222,11 +224,23 @@ function overlayMap(overlayFiltre)
         };
     }
 
-
-
     L.control.layers(null, overlayMaps).addTo(map);
 }
 
 function onMapClick(e) {
-    filtrerRadius(e);
+    filtrerRadius(e, document.getElementById("nudRayon").value * 1000);
+}
+
+function setFiltreRadius()
+{
+    map.eachLayer(function (layer)
+    {
+        // Check if layer is a marker
+        if (layer instanceof L.Circle)
+        {
+            var coord = layer._latlng;
+            var preferredRadius = document.getElementById("nudRayon").value * 1000;
+            filtrerRadius({ latlng: coord }, preferredRadius);
+        }
+    });
 }
