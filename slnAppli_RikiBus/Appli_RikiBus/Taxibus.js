@@ -171,6 +171,7 @@ $('document').ready(function () {
 
 
     }
+
     map.on('locationfound', onLocation);
 });
 
@@ -194,19 +195,13 @@ function checkDepart() {
 
 
 function position() {
-    map.locate({ setView: true, maxZoom: 16, enableHighAccuracy: true });
+    //map.locate({ setView: true, maxZoom: 16, enableHighAccuracy: true });/*
+    map.setView([48.5406343914947, -68.4289054901558], 12);//*/
 }
-//    map.locate({ setView: true, maxZoom: 16});
 
-//    var marker = L.marker(map.getCenter()).addTo(map);
-
-//    marker.bindPopup("Votre position");
-//}
 function onLocation(e) {
     var acc = e.accuracy / 2;
-    L.marker(e.latlng, acc).addTo(map).bindPopup("Votre position").icon;
-    //  L.circle(e.latlng, acc).addTo(map);
-
+    L.marker(e.latlng, acc).addTo(map).bindPopup("Votre position").icon.addClass("iconHidden");
 }
 
 
