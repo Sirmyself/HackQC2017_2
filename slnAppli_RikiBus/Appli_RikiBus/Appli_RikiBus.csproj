@@ -66,14 +66,19 @@
   <ItemGroup>
     <Content Include="App_Themes\Patch_.css" />
     <Content Include="App_Themes\style.css" />
-    <Content Include="CartePointVente.html" />
     <Content Include="PagesMenu\PageCiteBus\Fonctionnement\Carte.html" />
     <Content Include="PagesMenu\PageCiteBus\Fonctionnement\ModeEmploi.html" />
-    <Content Include="PagesMenu\PageTaxiBus\ModeEmploi.html" />
+    <Content Include="PagesMenu\PageCiteBus\Fonctionnement\Tarifs.html" />
+    <Content Include="PagesMenu\PageCiteBus\PointsVentes.html" />
+    <Content Include="PagesMenu\PageCiteBus\Reglements.html" />
+    <Content Include="PagesMenu\PageCiteBus\Simulation.html" />
+    <Content Include="pointVente.js" />
     <Content Include="ressources\fichiers_JSON\arretcitebus.json" />
     <Content Include="ressources\fichiers_JSON\circuitcitebus.json" />
     <Content Include="ressources\fichiers_JSON\Arrets.json" />
     <Content Include="packages.config" />
+    <Content Include="ressources\fichiers_JSON\citebusPointInteret.json" />
+    <Content Include="ressources\fichiers_JSON\PointVente.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -83,8 +88,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="icon.js" />
-    <Content Include="ressources\img\Style\favoicon.ico" />
-    <Content Include="ressources\img\Style\ligneGray.png" />
+    <Content Include="ressources\img\Pointers\star.png" />
     <Content Include="ressources\img\Style\ligneGreen.PNG" />
     <Content Include="ressources\img\Pointers\marker-blue.png" />
     <Content Include="ressources\img\Pointers\marker-green.png" />
@@ -119,6 +123,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Themes\Theme1\" />
+    <Folder Include="PagesMenu\PageTaxiBus\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
