@@ -46,12 +46,13 @@
     <!-- First Container -->
    <div class="container-fluid bg-1 text-center">
         <h1 class="margin">Taxibus</h1>
+       <p>Le service Taxibus est offert sur le territoire dans différentes zones et lignes identifiées par des couleurs. Pour connaître l’arrêt situé le plus près de vos besoins, vous devez consulter la carte de votre zone ou de votre ligne et l’horaire qui lui est assorti.</p>
         <div style="text-align : right; margin-bottom : 1em;">
             <h3>Filtre de points d'arrêt</h3>
-            <label for="nudRayon">Rayon du filtre (en Km) : </label>
+            <label for="nudRayon" style="font-size : smaller;">Rayon du filtre (en Km) : </label>
             <input type="number" id="nudRayon" min="0.5" step="0.1" value="0.5" max="3" style="color : black !important;" /><br />
-            <button class=" btn btn-default btn-lg text-center " onclick="position()"><span class="glyphicon glyphicon-map-marker"></span> Ma position</button> </br></br>
-            <button class=" btn btn-default btn-lg text-center " onclick="fitrerRadius()"><span class="glyphicon glyphicon-record"></span> Filter les arrêts</button>
+                <button class=" btn btn-default btn-lg text-center" style="margin-top:1em;" onclick="position()"><span class="glyphicon glyphicon-map-marker"></span> Ma position</button>
+                <button class=" btn btn-default btn-lg text-center" style="margin-top:1em;" onclick="fitrerRadius()"><span class="glyphicon glyphicon-record"></span> Filter les arrêts</button>
         </div>
         <div id="map" style="height:500px;" class="col-sm-12 text-center"> </div>
    
