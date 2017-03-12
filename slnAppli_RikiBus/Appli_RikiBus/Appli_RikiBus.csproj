@@ -66,6 +66,7 @@
   <ItemGroup>
     <Content Include="App_Themes\Patch_.css" />
     <Content Include="App_Themes\style.css" />
+    <Content Include="CartePointVente.html" />
     <Content Include="PagesMenu\PageCiteBus\Fonctionnement\Carte.html" />
     <Content Include="PagesMenu\PageCiteBus\Fonctionnement\ModeEmploi.html" />
     <Content Include="PagesMenu\PageCiteBus\Fonctionnement\Tarifs.html" />
