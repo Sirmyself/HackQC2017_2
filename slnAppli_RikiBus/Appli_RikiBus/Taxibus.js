@@ -8,6 +8,7 @@ var geojsonRabattement;
 var Depart = true;
 var PointA = null;
 var PointB = null;
+var filtre = false;
 
 var greyIcon;
 var greenIcon;
@@ -113,26 +114,16 @@ $('document').ready(function () {
             }
             return array;
         }
-
         //ajout des layers dans le sélecteur
-        overlayMaps = {
-            "1 - Zone Verte": geojsonVert,
-            "2 - Zone Bleue": geojsonBleue,
-            "3 - Ligne rouge": geojsonRouge,
-            "4 - Point de rabattement": geojsonRabattement
-        };
-
-
-
+        overlayMap(null);
         L.control.layers(null, overlayMaps).addTo(map);
-
     });
 
     //fonction relier à l'événement onCLick
     function markerClick(e) {
         if (Depart) {
             var selection = document.getElementById('Depart');
-            selection.innerHTML = e.target.feature.properties.CODE +" "+ e.target.feature.properties.Type_arret;
+            selection.innerHTML = e.target.feature.properties.CODE + " " + e.target.feature.properties.Type_arret;
             PointA = e;
         }
         else {
@@ -144,8 +135,9 @@ $('document').ready(function () {
         var activer = PointA != null && PointB != null;
         $('#btnReservation').toggle(activer);
 
-        if (activer)
+        if (activer) {
             determinerheures(PointA, PointB);
+        }
 
 
     }
@@ -153,48 +145,48 @@ $('document').ready(function () {
 });
 
 
-//Fonction de sélection des zones affichers en fonction du point de départ sélectionner
+//Fonction de sélection des zones affichées en fonction du point de départ sélectionné
 function checkDepart() {
     var checkbox = document.getElementById('myonoffswitch');
-    if (checkbox.checked) {
+    Depart = !checkbox.checked;
+    if (!Depart) {
         if (PointA != null) {
-            switch (PointA.target.feature.properties.Type_arret) {
-                case "Point de rabattement":
-                    uncheck("4 - Point de rabattement");
-                    break;
-                case "Taxibus - Zone verte":
-                    uncheck("2 - Zone Bleue");
+            var type = PointA.target.feature.properties.Type_arret;
+            if (type != "Point de rabattement") {
+                if (type != "Taxibus - Zone verte") {
+                    uncheck("1 - Zone verte");
+                }
+                if (type != 'Taxibus - Zone bleue') {
+                    uncheck("2 - Zone bleue");
+                }
+                if (type != "Taxibus - Ligne rouge") {
                     uncheck("3 - Ligne rouge");
-                    break;
-
-                case "Taxibus - Ligne rouge":
-                    uncheck("2 - Zone Bleue");
-                    uncheck("1 - Zone Verte");
-                    break;
-               
-                case 'Taxibus - Zone bleue':
-                    uncheck("1 - Zone Verte")
-                    uncheck("3 - Ligne rouge")
-                    break;
-
+                }
+            }
+            else {
+                uncheck("4 - Point de rabattement");
+            }
         }
-
-        }
-        Depart = false;
     }
     else {
-
-        Depart = true;
-        
-
+        check("1 - Zone verte");
+        check("2 - Zone bleue");
+        check("3 - Ligne rouge");
+        check("4 - Point de rabattement");
     }
-    
 }
 
 
-function uncheck(chaine)
-{
-    $("span:contains("+chaine+")").parent().find(">:first-child").trigger("click");
+function uncheck(chaine) {
+    if ($("span:contains(" + chaine + ")").parent().find(">:first-child").first()[0].checked) {
+        $("span:contains(" + chaine + ")").parent().find(">:first-child").trigger("click");
+    }
+}
+
+function check(chaine) {
+    if (!($("span:contains(" + chaine + ")").parent().find(">:first-child").first()[0].checked)) {
+        $("span:contains(" + chaine + ")").parent().find(">:first-child").trigger("click");
+    }
 }
 
 //fonction de géolocalisation présentement hardcode À luceville pour des raisons de convivialité
@@ -236,34 +228,41 @@ function filtrerRadius(e, radius) {
     cercleFiltre.addTo(map);
 }
 
-function reinitPts()
-{
-    var temp = [];
-    map.eachLayer(
-        function (layer) {
-            // Check if layer is a marker
-            if ((layer instanceof L.Circle)) {
-                map.removeLayer(layer);
-            }
-        });
+function enleverCercle() {
+    map.eachLayer(function (layer) {
+        if (layer instanceof L.Circle) {
+            map.removeLayer(layer);
+        }
+    });
+}
 
-    overlayMap(null);
+function reinitPts() {
+    enleverCercle();
+
+    check("Zone verte");
+    check("Zone bleue");
+    check("Ligne rouge");
+    check("Point de rabattement");
+    if (filtre) {
+        uncheck("Filtre");
+        filtre = false;
+    }
 }
 
 function overlayMap(overlayFiltre) {
-    $(".leaflet-top.leaflet-right > *").remove();
+    $(".leaflet-top.leaflet-right > *").remove()
     if (overlayFiltre == null) {
         overlayMaps = {
-            "1 - Zone Verte": geojsonVert,
-            "2 - Zone Bleue": geojsonBleue,
+            "1 - Zone verte": geojsonVert,
+            "2 - Zone bleue": geojsonBleue,
             "3 - Ligne rouge": geojsonRouge,
             "4 - Point de rabattement": geojsonRabattement
         };
     }
     else {
         overlayMaps = {
-            "1 - Zone Verte": geojsonVert,
-            "2 - Zone Bleue": geojsonBleue,
+            "1 - Zone verte": geojsonVert,
+            "2 - Zone bleue": geojsonBleue,
             "3 - Ligne rouge": geojsonRouge,
             "4 - Point de rabattement": geojsonRabattement,
             "Filtre": overlayFiltre
