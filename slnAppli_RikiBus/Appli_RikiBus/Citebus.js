@@ -17,8 +17,10 @@ $('document').ready(function () {
     // initialization de la map
     var coord = [48.4506343914947, -68.5283054901558];
     var mapCitebus = L.map('map').setView(coord, 16);
-    var marker = L.marker(coord, { icon: iconGrey }).addTo(mapCitebus);
-    marker.bindPopup("votre position actuelle");
+
+    //Amène la carte à la position actuelle de l'utilisateur et affiche un point de repère gris
+    mapCitebus.on("locationfound", onLocation);
+    mapCitebus.locate({ setView: true, maxZoom: 17, enableHighAccuracy: true });
 
 
     //Chargement de la carte de base
@@ -156,7 +158,18 @@ $('document').ready(function () {
     };
 
     L.control.layers(null, overlayMaps).addTo(mapCitebus);
+
+
+    //fonction appelée lors de la réussite de la localisation de la position actuelle.
+    function onLocation(e) {
+        var acc = e.accuracy / 2;
+        var marker = L.marker(e.latlng, { icon: iconGrey }).addTo(mapCitebus);
+        marker.bindPopup("Votre position actuelle");
+    }
 });
+
+//Amène la carte à la position actuelle de l'utilisateur et affiche un point de repère gris
+
 
 // Affiche les infos de temps pour un marker
 function getTemps(horaire)
