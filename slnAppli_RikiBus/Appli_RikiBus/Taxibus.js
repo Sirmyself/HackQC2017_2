@@ -115,7 +115,6 @@ $('document').ready(function () {
             return array;
         }
         //ajout des layers dans le sélecteur
-        overlayMap(null);
         L.control.layers(null, overlayMaps).addTo(map);
     });
 

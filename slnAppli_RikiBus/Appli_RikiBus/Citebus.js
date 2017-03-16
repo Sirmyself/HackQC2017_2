@@ -15,10 +15,12 @@ $('document').ready(function () {
         popupAnchor: [1, -27]
     });
     // initialization de la map
+    
     var coord = [48.4506343914947, -68.5283054901558];
     var mapCitebus = L.map('map').setView(coord, 16);
     var marker = L.marker(coord, { icon: iconGrey }).addTo(mapCitebus);
-    marker.bindPopup("votre position actuelle");
+    marker.bindPopup("votre position actuelle"); 
+    
 
 
     //Chargement de la carte de base

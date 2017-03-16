@@ -66,7 +66,6 @@
   <ItemGroup>
     <Content Include="App_Themes\Patch_.css" />
     <Content Include="App_Themes\style.css" />
-    <Content Include="CartePointVente.html" />
     <Content Include="Confirmation.html" />
     <Content Include="PagesMenu\PageCiteBus\Fonctionnement\ModeEmploi.html" />
     <Content Include="PagesMenu\PageCiteBus\PointsVentes.html" />
@@ -80,7 +79,6 @@
     <Content Include="ressources\fichiers_JSON\Arrets.json" />
     <Content Include="packages.config" />
     <Content Include="ressources\fichiers_JSON\citebusPointInteret.json" />
-    <Content Include="ressources\fichiers_JSON\PointVente.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -108,7 +106,6 @@
     <Content Include="ressources\img\Citebus\citebus.jpg" />
     <Content Include="ressources\img\Citebus\citebusneige.jpg" />
     <Content Include="ressources\img\Citebus\panneaucitebus.jpg" />
-    <Content Include="ressources\img\Citebus\petitemamiebus.jpg" />
     <Content Include="ressources\img\RimouskiCity\fleuveriki.jpg" />
     <Content Include="ressources\img\RimouskiCity\logoRiki.png" />
     <Content Include="ressources\img\RimouskiCity\RimouskiMapCarte.jpg" />
