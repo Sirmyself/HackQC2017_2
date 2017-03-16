@@ -190,7 +190,7 @@ function check(chaine) {
 
 //fonction de géolocalisation présentement hardcode À luceville pour des raisons de convivialité
 function position() {
-    //map.locate({ setView: true, maxZoom: 17, enableHighAccuracy: true });/*
+    map.locate({ setView: true, maxZoom: 17, enableHighAccuracy: true });/*
     var coord = [48.5206343914947, -68.4578054901558];
     map.setView(coord, 17);
     onLocation({ latlng: coord });//*/
